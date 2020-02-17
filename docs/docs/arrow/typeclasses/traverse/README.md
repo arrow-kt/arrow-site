@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Traverse
-permalink: /docs/arrow/typeclasses/traverse/
+permalink: /arrow/typeclasses/traverse/
 redirect_from:
-  - /docs/typeclasses/traverse/
+  - /typeclasses/traverse/
 ---
 
 ## Traverse
@@ -11,7 +11,7 @@ redirect_from:
 {:.intermediate}
 intermediate
 
-TODO. Meanwhile you can find a short description in the [intro to typeclasses]({{ '/docs/typeclasses/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to typeclasses]({{ '/typeclasses/intro/' | relative_url }}).
 
 
 ### Data types

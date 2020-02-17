@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: WriterT
-permalink: /docs/arrow/data/writert/
+permalink: /arrow/data/writert/
 redirect_from:
-  - /docs/datatypes/writert/
+  - /datatypes/writert/
 ---
 
 ## WriterT
@@ -21,4 +21,4 @@ import arrow.core.*
 DataType(WriterT::class).tcMarkdownList()
 ```
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

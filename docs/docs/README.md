@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Quick Start
-permalink: /docs/
+permalink: /
 ---
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.arrow-kt/arrow-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.arrow-kt/arrow-core)
@@ -16,17 +16,17 @@ For this, it includes the most popular data types, type classes and abstractions
 
 Use the list below to learn more about Λrrow's main features.
 
-- [Patterns](http://arrow-kt.io/docs/patterns/glossary/): tutorials and approaches to day-to-day challenges using FP
-- [Libraries](http://arrow-kt.io/docs/quickstart/libraries/): all the libraries provided by Λrrow
-- [Type classes](http://arrow-kt.io/docs/typeclasses/intro/): defining behaviors for data
-- [Data types](http://arrow-kt.io/docs/datatypes/intro/): common abstractions
-- [Effects](http://arrow-kt.io/docs/effects/io/): interfacing with external systems
-- [Optics](http://arrow-kt.io/docs/optics/iso/): inspecting and modifying data structures
+- [Patterns]({{ '/patterns/glossary/' | relative_url }}): tutorials and approaches to day-to-day challenges using FP
+- [Libraries]({{ '/quickstart/libraries/' | relative_url }}): all the libraries provided by Λrrow
+- [Type classes]({{ '/typeclasses/intro/' | relative_url }}): defining behaviors for data
+- [Data types]({{ '/datatypes/intro/' | relative_url }}): common abstractions
+- [Effects]({{ '/effects/io/' | relative_url }}): interfacing with external systems
+- [Optics]({{ '/optics/iso/' | relative_url }}): inspecting and modifying data structures
 
 #### Curated external links
 
-- [Projects and Examples](http://arrow-kt.io/docs/quickstart/projects/)
-- [Blogs and Presentations](http://arrow-kt.io/docs/quickstart/blogs/)
+- [Projects and Examples]({{ '/quickstart/projects/' | relative_url }})
+- [Blogs and Presentations]({{ '/quickstart/blogs/' | relative_url }})
 
 # Gradle 
 ## Basic Setup

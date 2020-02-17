@@ -1,11 +1,11 @@
 ---
 layout: docs
 title: kotlinx.coroutines
-permalink: /docs/integrations/kotlinxcoroutines/
+permalink: /integrations/kotlinxcoroutines/
 ---
 
 As of Arrow 0.9.0 we have deprecated support for `Deferred` from `kotlinx.coroutines`. Using `Deferred` as a return type is considered a smell by the library owners, and we were not able to make it work consistently against some of the Laws.
-We have not given up support for suspend functions! If you would like to use `suspend fun` you can do so using [`arrow-fx`]({{ '/docs/effects/fx/' | relative_url }}):
+We have not given up support for suspend functions! If you would like to use `suspend fun` you can do so using [`arrow-fx`]({{ '/effects/fx/' | relative_url }}):
 ```kotlin:ank:playground
 import arrow.effects.IO
 import arrow.unsafe

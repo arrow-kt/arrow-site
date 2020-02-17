@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Try
-permalink: /docs/arrow/core/try/ru/
+permalink: /arrow/core/try/ru/
 redirect_from:
-  - /docs/datatypes/try/ru/
+  - /datatypes/try/ru/
 video: XavztYVMUqI
 ---
 
@@ -12,9 +12,9 @@ video: XavztYVMUqI
 {:.beginner}
 beginner
 
-[English](/docs/arrow/core/try)
+[English]({{ '/arrow/core/try/' | relative_url }})
 
-В Arrow [есть множество способов для обработки ошибок](http://arrow-kt.io/docs/patterns/error_handling/), что позволяет выбрать оптимальную стратегию для любой ситуации.
+В Arrow [есть множество способов для обработки ошибок]({{ '/patterns/error_handling/' | relative_url }}), что позволяет выбрать оптимальную стратегию для любой ситуации.
 
 Например, существует `Option` для моделирования отсутствия значения, или `Either` для моделирования возвращенного функцией типа, который содержит в себе информацию о том завершилась ли функция исключением или вернула значение.
 
@@ -150,7 +150,7 @@ Try {
 
 В заключение, в Arrow есть инстансы `Try` для многих полезных классов типа, позволяющие использовать и трансформировать значения:
 
-[`Functor`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }})
+[`Functor`]({{ '/arrow/typeclasses/functor/' | relative_url }})
 
 Трансформация значения в случае, если функция завершилась успешно:
 
@@ -162,7 +162,7 @@ import arrow.core.extensions.`try`.functor.*
 Try { "3".toInt() }.map { it + 1 }
 ```
 
-[`Applicative`]({{ '/docs/arrow/typeclasses/applicative/' | relative_url }})
+[`Applicative`]({{ '/arrow/typeclasses/applicative/' | relative_url }})
 
 Вычисление с использованием независимых друг от друга значений:
 
@@ -172,7 +172,7 @@ import arrow.core.extensions.`try`.applicative.tupled
 tupled(Try { "3".toInt() }, Try { "5".toInt() }, Try { "nope".toInt() })
 ```
 
-[`Monad`]({{ '/docs/arrow/typeclasses/monad/' | relative_url }})
+[`Monad`]({{ '/arrow/typeclasses/monad/' | relative_url }})
 
 Вычисление с использованием зависимых друг от друга значений, выполнение которого подразумевает возможность ошибки:
 

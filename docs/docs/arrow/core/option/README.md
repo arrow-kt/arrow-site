@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Option
-permalink: /docs/arrow/core/option/
+permalink: /arrow/core/option/
 redirect_from:
-  - /docs/datatypes/option/
+  - /datatypes/option/
 
 video: 5SFTbphderE
 ---
@@ -13,7 +13,7 @@ video: 5SFTbphderE
 {:.beginner}
 beginner
 
-[Перевод на русский](/docs/arrow/core/option/ru)
+[Перевод на русский]({{ '/arrow/core/option/ru' | relative_url }})
 
 If you have worked with Java at all in the past, it is very likely that you have come across a `NullPointerException` at some time (other languages will throw similarly named errors in such a case). Usually this happens because some method returns `null` when you were not expecting it and thus not dealing with that possibility in your client code. A value of `null` is often abused to represent an absent optional value.
 Kotlin tries to solve the problem by getting rid of `null` values altogether and providing its own special syntax [Null-safety machinery based on `?`](https://kotlinlang.org/docs/reference/null-safety.html).
@@ -172,7 +172,7 @@ fun foo() {
 
 Arrow contains `Option` instances for many useful typeclasses that allows you to use and transform optional values
 
-[`Functor`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }})
+[`Functor`]({{ '/arrow/typeclasses/functor/' | relative_url }})
 
 Transforming the inner contents
 
@@ -183,7 +183,7 @@ import arrow.core.extensions.option.functor.*
 Some(1).map { it + 1 }
 ```
 
-[`Applicative`]({{ '/docs/arrow/typeclasses/applicative/' | relative_url }})
+[`Applicative`]({{ '/arrow/typeclasses/applicative/' | relative_url }})
 
 Computing over independent values
 
@@ -193,7 +193,7 @@ import arrow.core.extensions.option.applicative.*
 tupled(Some(1), Some("Hello"), Some(20.0))
 ```
 
-[`Monad`]({{ '/docs/arrow/typeclasses/monad/' | relative_url }})
+[`Monad`]({{ '/arrow/typeclasses/monad/' | relative_url }})
 
 Computing over dependent values ignoring absence
 

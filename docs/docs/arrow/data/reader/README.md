@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Reader
-permalink: /docs/arrow/data/reader/
+permalink: /arrow/data/reader/
 redirect_from:
-  - /docs/datatypes/reader/
+  - /datatypes/reader/
 ---
 
 ## Reader
@@ -21,4 +21,4 @@ import arrow.core.*
 DataType(ReaderT::class).tcMarkdownList()
 ```
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

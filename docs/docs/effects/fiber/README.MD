@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Fiber
-permalink: /docs/effects/fiber/
+permalink: /effects/fiber/
 ---
 
 ## Fiber

@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Option
-permalink: /docs/arrow/core/option/ru/
+permalink: /arrow/core/option/ru/
 redirect_from:
-  - /docs/datatypes/option/ru/
+  - /datatypes/option/ru/
 
 video: 5SFTbphderE
 ---
@@ -13,7 +13,7 @@ video: 5SFTbphderE
 {:.beginner}
 beginner
 
-[English](/docs/arrow/core/option)
+[English]({{ '/arrow/core/option/' | relative_url }})
 
 Если Вы работали с Java в прошлом, то скорее всего встречались с `NullPointerException` (прочие языки бросают ошибку с похожим названием). Обычно это происходит из-за того, что какой-то метод вернул `null`, когда это не ожидалось, и поэтому обработка этого значения так и не попала в код. Значение `null` также часто используется для обозначения отсутствия опционального значения.
 Котлин пытается бороться с этой проблемой путем полного избавления от `null`-значений через специальный [null-безопасный синтаксис,  основанный на `?`](https://kotlinlang.org/docs/reference/null-safety.html).
@@ -173,7 +173,7 @@ fun foo() {
 
 В Arrow есть инстансы `Option` для множества удобных классов типа, которые позволяют использовать и трансформировать опциональные значения
 
-[`Функтор`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }})
+[`Функтор`]({{ '/arrow/typeclasses/functor/' | relative_url }})
 
 Трансформация вложенного значения
 
@@ -184,7 +184,7 @@ import arrow.core.extensions.option.functor.*
 Some(1).map { it + 1 }
 ```
 
-[`Аппликатив`]({{ '/docs/arrow/typeclasses/applicative/' | relative_url }})
+[`Аппликатив`]({{ '/arrow/typeclasses/applicative/' | relative_url }})
 
 Вычисление с использованиеми независимых друг от друга значений
 
@@ -194,7 +194,7 @@ import arrow.core.extensions.option.applicative.*
 tupled(Some(1), Some("Hello"), Some(20.0))
 ```
 
-[`Монада`]({{ '/docs/arrow/typeclasses/monad/' | relative_url }})
+[`Монада`]({{ '/arrow/typeclasses/monad/' | relative_url }})
 
 Вычисление с использованием зависимых значений, за исключением случаев их отстутствия
 

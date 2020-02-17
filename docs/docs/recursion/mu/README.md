@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Mu
-permalink: /docs/recursion/mu/
+permalink: /recursion/mu/
 ---
 
 ## Mu

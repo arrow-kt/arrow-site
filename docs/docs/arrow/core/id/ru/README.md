@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Id
-permalink: /docs/arrow/core/id/ru/
+permalink: /arrow/core/id/ru/
 redirect_from:
-  - /docs/datatypes/id/ru/
+  - /datatypes/id/ru/
 video: DBvVd1pfLMo
 ---
 
@@ -12,7 +12,7 @@ video: DBvVd1pfLMo
 {:.beginner}
 beginner
 
-[English](/docs/arrow/core/id/)
+[English]({{ '/arrow/core/id/' | relative_url }})
 
 Id (монада идентичности) должна рассматриваться, как монада, в которую вкладывается эффект отсутствия эффекта. Любое значение может являться значением `Id`.
 

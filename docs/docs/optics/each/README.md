@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Each
-permalink: /docs/optics/each/
+permalink: /optics/each/
 ---
 
 ## Each
@@ -9,7 +9,7 @@ permalink: /docs/optics/each/
 {:.beginner}
 beginner
 
-`Each` provides a [`Traversal`]({{ '/docs/optics/traversal/' | relative_url }}) that can focus into a structure `S` to see all its foci `A`.
+`Each` provides a [`Traversal`]({{ '/optics/traversal/' | relative_url }}) that can focus into a structure `S` to see all its foci `A`.
 
 ### Example
 
@@ -37,7 +37,7 @@ Arrow provides `Each` instances for some common datatypes in Arrow. You can look
 
 You may create instances of `Each` for your own datatypes which you will be able to use as demonstrated in the [example](#example) above.
 
-See [Deriving and creating custom typeclass]({{ '/docs/patterns/glossary' | relative_url }}) to provide your own `Each` instances for custom datatypes.
+See [Deriving and creating custom typeclass]({{ '/patterns/glossary' | relative_url }}) to provide your own `Each` instances for custom datatypes.
 
 ### Data types
 

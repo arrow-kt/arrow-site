@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Ior
-permalink: /docs/arrow/data/ior/
+permalink: /arrow/data/ior/
 redirect_from:
-  - /docs/datatypes/ior/
+  - /datatypes/ior/
 ---
 
 ## Ior
@@ -12,7 +12,7 @@ redirect_from:
 beginner
 
 `Ior` represents an inclusive-or relationship between two data types.
-This makes it very similar to the [`Either`](/docs/arrow/core/either) data type, which represents an "exclusive-or" relationship.
+This makes it very similar to the [`Either`]({{ '/arrow/core/either' | relative_url }}) data type, which represents an "exclusive-or" relationship.
 An `Ior<A, B>` (also written as `A Ior B`) can contain either an `A`, a `B`, or both.
 Another similarity to `Either` is that `Ior` is right-biased,
 which means that the `map` and `flatMap` functions will work on the right side of the `Ior`, in our case the `B` value.
@@ -55,7 +55,7 @@ Arrow also offers extension functions for `Ior`, the `leftIor`, `rightIor` and `
 
 
 When we look at the `Monad` or `Applicative` instances of `Ior`, we can see that they actually require a `Semigroup` instance on the left side.
-This is because `Ior` will actually accumulate failures on the left side, very similarly to how the [`Validated`](/docs/arrow/data/validated) data type does.
+This is because `Ior` will actually accumulate failures on the left side, very similarly to how the [`Validated`]({{ '/arrow/data/validated' | relative_url }}) data type does.
 This means we can accumulate data on the left side while also being able to short-circuit upon the first right-side-only value.
 For example, we might want to accumulate warnings together with a valid result and only halt the computation on a "hard error"
 Here's an example of how we are able to do that:
@@ -110,7 +110,7 @@ validateUser("john.doe", "password").fold(
 )
 //Warning: john.doe; The following warnings occurred: Dot in name is deprecated, Password should be longer
 ```
-Similar to [Validated](/docs/arrow/data/validated), there is also a type alias for using a `NonEmptyList` on the left side.
+Similar to [Validated]({{ '/arrow/data/validated' | relative_url }}), there is also a type alias for using a `NonEmptyList` on the left side.
 
 ```kotlin
 typealias IorNel<A, B> = Ior<Nel<A>, B>

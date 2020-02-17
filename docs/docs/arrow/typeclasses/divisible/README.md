@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Divisible
-permalink: /docs/arrow/typeclasses/divisible/
+permalink: /arrow/typeclasses/divisible/
 redirect_from:
-  - /docs/typeclasses/divisible
+  - /typeclasses/divisible
 ---
 
 ## Divisible
@@ -42,7 +42,7 @@ Construct an empty value for any `Kind<F, A>`.
 
 Arrow provides `DivisibleLaws` in the form of test cases for internal verification of lawful instances and third party apps creating their own `Divisible` instances.
 
-See [Deriving and creating custom typeclass]({{ '/docs/patterns/glossary' | relative_url }}) to provide your own `Divisible` instances for custom datatypes.
+See [Deriving and creating custom typeclass]({{ '/patterns/glossary' | relative_url }}) to provide your own `Divisible` instances for custom datatypes.
 
 ### Data types
 

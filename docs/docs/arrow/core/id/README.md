@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Id
-permalink: /docs/arrow/core/id/
+permalink: /arrow/core/id/
 redirect_from:
-  - /docs/datatypes/id/
+  - /datatypes/id/
 video: DBvVd1pfLMo
 ---
 
@@ -12,7 +12,7 @@ video: DBvVd1pfLMo
 {:.beginner}
 beginner
 
-[Перевод на русский](/docs/arrow/core/id/ru/)
+[Перевод на русский]({{ '/arrow/core/id/ru/' | relative_url }})
 
 The identity monad can be seen as the ambient monad that encodes the effect of having no effect.
 It is ambient in the sense that plain pure values are values of `Id`.

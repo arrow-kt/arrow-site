@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Either
-permalink: /docs/arrow/core/either/ru/
+permalink: /arrow/core/either/ru/
 redirect_from:
-  - /docs/datatypes/either/ru/
+  - /datatypes/either/ru/
 video: q6HpChSq-xc
 ---
 
@@ -12,7 +12,7 @@ video: q6HpChSq-xc
 {:.beginner}
 beginner
 
-[English](/docs/arrow/core/either/)
+[English]({{ '/arrow/core/either/' | relative_url }})
 
 Программируя мы часто пишем функции, которые могут завершиться неудачей.
 Например, сетевой запрос может прерваться из-за проблем c соединением, или из сервиса вернется JSON, который мы не готовы спарсить.
@@ -304,7 +304,7 @@ null.rightIfNotNull { "значение для left" }
 В Arrow есть инстансы `Either` для множества полезных классов типа, которые позволяют использовать и трансформировать значения.
 `Option` и `Try` не требуют типизированного параметра с последующими функциями, но они используются для `Either.Left`.
 
- [`Функтор`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }})
+ [`Функтор`]({{ '/arrow/typeclasses/functor/' | relative_url }})
 
 Трансормация внутренних значений
 
@@ -314,7 +314,7 @@ import arrow.core.extensions.either.functor.*
 Right(1).map { it + 1 }
 ```
 
- [`Аппликатив`]({{ '/docs/arrow/typeclasses/applicative/' | relative_url }})
+ [`Аппликатив`]({{ '/arrow/typeclasses/applicative/' | relative_url }})
 
 Вычисление с использованиеми независимымых друг от друга значений.
 
@@ -324,7 +324,7 @@ import arrow.core.extensions.either.applicative.*
 tupled(Either.Right(1), Either.Right("a"), Either.Right(2.0))
 ```
 
- [`Монада`]({{ '/docs/arrow/typeclasses/monad/' | relative_url }})
+ [`Монада`]({{ '/arrow/typeclasses/monad/' | relative_url }})
 
 Вычисление с использованием зависимых значений, за исключением случаев их отстутствия
 

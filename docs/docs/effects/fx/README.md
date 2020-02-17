@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Fx
-permalink: /docs/effects/fx/
+permalink: /effects/fx/
 ---
 
 # Arrow Fx. Typed FP for the masses

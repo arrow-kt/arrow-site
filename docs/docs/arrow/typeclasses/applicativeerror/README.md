@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: ApplicativeError
-permalink: /docs/arrow/typeclasses/applicativeerror/
+permalink: /arrow/typeclasses/applicativeerror/
 redirect_from:
-  - /docs/typeclasses/applicativeerror/
+  - /typeclasses/applicativeerror/
 ---
 
 ## ApplicativeError
@@ -18,12 +18,12 @@ These errors can come in the form of `Throwable`, `Exception`, or any other type
 like for example a sealed class UserNotFoundReason that contains 3 inheritors.
 
 Some of the datatypes Λrrow provides can have these error types already fixed.
-That's the case of [`Try<A>`]({{ '/docs/arrow/core/try' | relative_url }}), which has its error type fixed to `Throwable`.
-Other datatypes like [`Either<E, A>`]({{ '/docs/arrow/core/either' | relative_url }}) allow for the user to apply their error type of choice.
+That's the case of [`Try<A>`]({{ '/arrow/core/try/' | relative_url }}), which has its error type fixed to `Throwable`.
+Other datatypes like [`Either<E, A>`]({{ '/arrow/core/either/' | relative_url }}) allow for the user to apply their error type of choice.
 
 ### Main Combinators
 
-`ApplicativeError` inherits all the combinators available in [`Applicative`]({{ '/docs/arrow/typeclasses/applicative' | relative_url }}). It also adds several of its own.
+`ApplicativeError` inherits all the combinators available in [`Applicative`]({{ '/arrow/typeclasses/applicative/' | relative_url }}). It also adds several of its own.
 
 #### raiseError
 
@@ -55,7 +55,7 @@ IO.applicativeError().raiseError<Int>(RuntimeException("Paco"))
 
 This method requires a function that creates a new datatype from an error, `(E) -> Kind<F, A>`. This function is used as a catch + recover clause for the current instance, allowing it to return a new computation after a failure.
 
-If [`Monad`]({{ '/docs/arrow/typeclasses/monad' | relative_url }}) has `flatMap` to allow mapping the value inside a *successful* datatype into a new datatype, you can think of `handleErrorWith` as a way that allows you to map the value of a *failed datatype into a new datatype.
+If [`Monad`]({{ '/arrow/typeclasses/monad/' | relative_url }}) has `flatMap` to allow mapping the value inside a *successful* datatype into a new datatype, you can think of `handleErrorWith` as a way that allows you to map the value of a *failed datatype into a new datatype.
 
 ```kotlin:ank
 import arrow.core.handleErrorWith
@@ -85,7 +85,7 @@ failure.handleError { t -> 0 }
 
 #### Kind<F, A>#attempt
 
-Maps the current content of the datatype to an [`Either<E, A>`]({{ '/docs/arrow/core/either' | relative_url }}), recovering from any previous error state.
+Maps the current content of the datatype to an [`Either<E, A>`]({{ '/arrow/core/either/' | relative_url }}), recovering from any previous error state.
 
 ```kotlin:ank
 Try { "3".toInt() }.attempt()
@@ -97,7 +97,7 @@ Try { "nope".toInt() }.attempt()
 
 #### fromEither/fromTry/fromOption
 
-Constructor function from an [`Either<E, A>`]({{ '/docs/arrow/core/either' | relative_url }}), [`Option<A>`]({{ '/docs/arrow/core/option' | relative_url }}), or [`Try<A>`]({{ '/docs/arrow/core/try' | relative_url }}) to the current datatype.
+Constructor function from an [`Either<E, A>`]({{ '/arrow/core/either/' | relative_url }}), [`Option<A>`]({{ '/arrow/core/option/' | relative_url }}), or [`Try<A>`]({{ '/arrow/core/try/' | relative_url }}) to the current datatype.
 
 While `fromOption()` requires creating a new error value.
 

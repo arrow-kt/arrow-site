@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Trampoline
-permalink: /docs/arrow/free/trampoline/
+permalink: /arrow/free/trampoline/
 redirect_from:
-  - /docs/datatypes/trampoline/
+  - /datatypes/trampoline/
 ---
 
 ## Trampoline
@@ -11,4 +11,4 @@ redirect_from:
 {:.advanced}
 advanced
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

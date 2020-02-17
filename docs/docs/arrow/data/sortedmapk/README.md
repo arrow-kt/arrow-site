@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: SortedMapK
-permalink: /docs/arrow/data/sortedmapk/
+permalink: /arrow/data/sortedmapk/
 redirect_from:
-  - /docs/datatypes/sortedmapk/
+  - /datatypes/sortedmapk/
 ---
 
 ## SortedMapK
@@ -21,4 +21,4 @@ import arrow.core.*
 DataType(SortedMapK::class).tcMarkdownList()
 ```
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

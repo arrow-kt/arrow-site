@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Try
-permalink: /docs/arrow/core/try/
+permalink: /arrow/core/try/
 redirect_from:
-  - /docs/datatypes/try/
+  - /datatypes/try/
 video: XavztYVMUqI
 ---
 
@@ -12,9 +12,9 @@ video: XavztYVMUqI
 {:.beginner}
 beginner
 
-[Перевод на русский](/docs/arrow/core/try/ru)
+[Перевод на русский]({{ '/arrow/core/try/ru' | relative_url }})
 
-Arrow has [lots of different types of error handling and reporting](http://arrow-kt.io/docs/patterns/error_handling/), which allows you to choose the best strategy for your situation.
+Arrow has [lots of different types of error handling and reporting]({{ '/patterns/error_handling/' | relative_url }}), which allows you to choose the best strategy for your situation.
 
 For example, we have `Option` to model the absence of a value, or `Either` to model the return of a function as a type that may have been successful, or may have failed.
 
@@ -165,7 +165,7 @@ Try {
 
 Lastly, Arrow contains `Try` instances for many useful typeclasses that allows you to use and transform fallibale values:
 
-[`Functor`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }})
+[`Functor`]({{ '/arrow/typeclasses/functor/' | relative_url }})
 
 Transforming the value, if the computation is a success:
 
@@ -177,7 +177,7 @@ import arrow.core.extensions.`try`.functor.*
 Try { "3".toInt() }.map { it + 1 }
 ```
 
-[`Applicative`]({{ '/docs/arrow/typeclasses/applicative/' | relative_url }})
+[`Applicative`]({{ '/arrow/typeclasses/applicative/' | relative_url }})
 
 Computing over independent values:
 
@@ -187,7 +187,7 @@ import arrow.core.extensions.`try`.applicative.tupled
 tupled(Try { "3".toInt() }, Try { "5".toInt() }, Try { "nope".toInt() })
 ```
 
-[`Monad`]({{ '/docs/arrow/typeclasses/monad/' | relative_url }})
+[`Monad`]({{ '/arrow/typeclasses/monad/' | relative_url }})
 
 Computing over dependent values ignoring failure:
 

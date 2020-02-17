@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Decidable
-permalink: /docs/arrow/typeclasses/decidable/
+permalink: /arrow/typeclasses/decidable/
 redirect_from:
-  - /docs/typeclasses/decidable
+  - /typeclasses/decidable
 ---
 
 ## Decidable
@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
 Constructs a `Kind<F, C>` from a `Kind<F, A>`, a `Kind<F, B>` and a function `(C) -> Either<A, B>`.
 The intuition here is that the function "decides" what value to use by specifying it with the either constructed.
 
-See [Deriving and creating custom typeclass]({{ '/docs/patterns/glossary' | relative_url }}) to provide your own `Decidable` instances for custom datatypes.
+See [Deriving and creating custom typeclass]({{ '/patterns/glossary' | relative_url }}) to provide your own `Decidable` instances for custom datatypes.
 
 ### Data types
 

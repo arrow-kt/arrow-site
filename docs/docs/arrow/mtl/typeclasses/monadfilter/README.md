@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: MonadFilter
-permalink: /docs/arrow/mtl/typeclasses/monadfilter/
+permalink: /arrow/mtl/typeclasses/monadfilter/
 redirect_from:
-  - /docs/typeclasses/monadfilter/
+  - /typeclasses/monadfilter/
 ---
 
 ## MonadFilter

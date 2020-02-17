@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Promise
-permalink: /docs/effects/promise/
+permalink: /effects/promise/
 ---
 
 ## Promise

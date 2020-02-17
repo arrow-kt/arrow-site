@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Reactor
-permalink: /docs/integrations/reactor/
+permalink: /integrations/reactor/
 ---
 
 ## Project Reactor
@@ -26,7 +26,7 @@ val flux = Flux.just(7, 4, 11 ,3)
 
 ### Integration with your existing Flux chains
 
-The largest quality of life improvement when using Flux streams in Arrow is the introduction of the [Monad Comprehension]({{ '/docs/patterns/monad_comprehensions' | relative_url }}). This library construct allows expressing asynchronous Flux sequences as synchronous code using binding/bind.
+The largest quality of life improvement when using Flux streams in Arrow is the introduction of the [Monad Comprehension]({{ '/patterns/monad_comprehensions/' | relative_url }}). This library construct allows expressing asynchronous Flux sequences as synchronous code using binding/bind.
 
 #### Arrow Wrapper
 
@@ -57,9 +57,9 @@ mono.value()
 
 ### Observable comprehensions
 
-The library provides instances of [`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }}) and [`MonadDefer`]({{ '/docs/effects/monaddefer' | relative_url }}).
+The library provides instances of [`MonadError`]({{ '/arrow/typeclasses/monaderror/' | relative_url }}) and [`MonadDefer`]({{ '/effects/monaddefer/' | relative_url }}).
 
-[`Async`]({{ '/docs/effects/async' | relative_url }}) allows you to generify over datatypes that can run asynchronous code. You can use it with `FluxK` or `MonoK`.
+[`Async`]({{ '/effects/async/' | relative_url }}) allows you to generify over datatypes that can run asynchronous code. You can use it with `FluxK` or `MonoK`.
 
 ```kotlin
 fun <F> getSongUrlAsync(MS: MonadDefer<F>) =
@@ -69,7 +69,7 @@ val songFlux: FluxKOf<Url> = getSongUrlAsync(FluxK.monadDefer())
 val songMono: MonoKOf<Url> = getSongUrlAsync(MonoK.monadDefer())
 ```
 
-[`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }}) can be used to start a [Monad Comprehension]({{ '/docs/patterns/monad_comprehensions' | relative_url }}) using the method `bindingCatch`, with all its benefits.
+[`MonadError`]({{ '/arrow/typeclasses/monaderror/' | relative_url }}) can be used to start a [Monad Comprehension]({{ '/patterns/monad_comprehensions/' | relative_url }}) using the method `bindingCatch`, with all its benefits.
 
 Let's take an example and convert it to a comprehension. We'll create an observable that loads a song from a remote location, and then reports the current play % every 100 milliseconds until the percentage reaches 100%:
 
@@ -124,7 +124,7 @@ val disposable =
     
 disposable.dispose()
 ```
-Note that [`MonadDefer`]({{ '/docs/effects/monaddefer' | relative_url }}) provides an alternative to `bindingCatch` called `bindingCancellable` returning a `arrow.Disposable`.
+Note that [`MonadDefer`]({{ '/effects/monaddefer/' | relative_url }}) provides an alternative to `bindingCatch` called `bindingCancellable` returning a `arrow.Disposable`.
 Invoking this `Disposable` causes an `BindingCancellationException` in the chain which needs to be handled by the subscriber, similarly to what `Deferred` does.
 
 ```kotlin
@@ -147,10 +147,10 @@ disposable()
 
 ### Stack safety
 
-While [`MonadDefer`]({{ '/docs/effects/monaddefer' | relative_url }}) usually guarantees stack safety, this does not apply for the reactor wrapper types. 
+While [`MonadDefer`]({{ '/effects/monaddefer/' | relative_url }}) usually guarantees stack safety, this does not apply for the reactor wrapper types. 
 This is a limitation on reactor's side. See the corresponding github [issue]({{ 'https://github.com/reactor/reactor-core/issues/1441' }}).
 
-To overcome this limitation and run code in a stack safe way, one can make use of `bindingStackSafe` which is provided for every instance of [`Monad`]({{ '/docs/typeclasses/monad' | relative_url }}) when you have `arrow-free` included.
+To overcome this limitation and run code in a stack safe way, one can make use of `bindingStackSafe` which is provided for every instance of [`Monad`]({{ '/typeclasses/monad/' | relative_url }}) when you have `arrow-free` included.
 
 ```kotlin:ank:playground
 import arrow.Kind

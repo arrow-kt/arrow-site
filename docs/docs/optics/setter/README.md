@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Setter
-permalink: /docs/optics/setter/
+permalink: /optics/setter/
 ---
 
 ## Setter
@@ -11,7 +11,7 @@ beginner
 
 A `Setter` is an optic that can see into a structure and set or modify its focus.
 
-It is a generalisation of [`Functor#map`](/docs/arrow/typeclasses/functor). Given a `Functor<F>` we can apply a function `(A) -> B` to `Kind<F, A>` and get `Kind<F, B>`. We can think of `Kind<F, A>` as a structure `S` that has a focus `A`.
+It is a generalisation of [`Functor#map`]({{ '/arrow/typeclasses/functor/' | relative_url }}). Given a `Functor<F>` we can apply a function `(A) -> B` to `Kind<F, A>` and get `Kind<F, B>`. We can think of `Kind<F, A>` as a structure `S` that has a focus `A`.
 So given a `PSetter<S, T, A, B>` we can apply a function `(A) -> B` to `S` and get `T`.
 
 - `Functor.map(fa: Kind<F, A>, f: (A) -> B) -> Kind<F, B>`
@@ -53,7 +53,7 @@ val lift = playerSetter.lift(increment)
 lift(Player(75))
 ```
 
-There are also some convenience methods to make working with [State]({{ '/docs/arrow/data/state' | relative_url }}) easier.
+There are also some convenience methods to make working with [State]({{ '/arrow/data/state' | relative_url }}) easier.
 This can make working with nested structures in stateful computations significantly more elegant.
 
 ```kotlin:ank
@@ -70,7 +70,7 @@ restoreHealth.run(Player(75))
 
 ## Composition
 
-Unlike a regular `set` function a `Setter` composes. Similar to a [`Lens`](/docs/optics/lens) we can compose `Setter`s to focus into nested structures and set or modify a value.
+Unlike a regular `set` function a `Setter` composes. Similar to a [`Lens`]({{ '/optics/lens/' | relative_url }}) we can compose `Setter`s to focus into nested structures and set or modify a value.
 
 ```kotlin:ank
 data class Bar(val player: Player)

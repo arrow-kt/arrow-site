@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Cons
-permalink: /docs/optics/cons/
+permalink: /optics/cons/
 ---
 
 ## Cons
@@ -9,7 +9,7 @@ permalink: /docs/optics/cons/
 {:.beginner}
 beginner
 
-`Cons` provides a [Prism]({{ '/docs/optics/prism' | relative_url }}) between a structure `S` and its first element `A` and tail `S`.
+`Cons` provides a [Prism]({{ '/optics/prism' | relative_url }}) between a structure `S` and its first element `A` and tail `S`.
 It provides a convenient way to attach or detach elements to the beginning side of a structure [S].
 
 It can be constructed by providing the `Prism`.

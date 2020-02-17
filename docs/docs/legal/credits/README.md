@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Credits
-permalink: /docs/legal/credits/
+permalink: /legal/credits/
 ---
 
 ## Credits

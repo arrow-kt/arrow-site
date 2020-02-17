@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Arrow Fx - Polymorphism. One Program multiple runtimes
-permalink: /docs/effects/fx/polymorphism/
+permalink: /effects/fx/polymorphism/
 ---
 
 # Polymorphism. One Program multiple runtimes

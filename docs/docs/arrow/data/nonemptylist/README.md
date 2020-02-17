@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: NonEmptyList
-permalink: /docs/arrow/data/nonemptylist/
+permalink: /arrow/data/nonemptylist/
 redirect_from:
-  - /docs/datatypes/nonemptylist/
+  - /datatypes/nonemptylist/
 video: TC6IzE61OyE
 ---
 

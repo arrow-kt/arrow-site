@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Retrofit
-permalink: /docs/integrations/retrofit/
+permalink: /integrations/retrofit/
 ---
 
 ## Retrofit
@@ -9,7 +9,7 @@ permalink: /docs/integrations/retrofit/
 {:.advanced}
 advanced
 
-Arrow contains a integration module for Retrofit so you can use any synchronous or asynchronous datatype of your choice, like [`Try`]({{ '/docs/arrow/core/try' | relative_url }}), [`ObservableK`]({{ '/docs/integrations/rx2' | relative_url }}), [`IO`]({{ '/docs/effects/io' | relative_url }}) or [`DeferredK`]({{ '/docs/integrations/kotlinxcoroutines' | relative_url }}).
+Arrow contains a integration module for Retrofit so you can use any synchronous or asynchronous datatype of your choice, like [`Try`]({{ '/arrow/core/try/' | relative_url }}), [`ObservableK`]({{ '/integrations/rx2/' | relative_url }}), [`IO`]({{ '/effects/io/' | relative_url }}) or [`DeferredK`]({{ '/integrations/kotlinxcoroutines/' | relative_url }}).
 
 
 ### Using `Call` directly with extensions functions
@@ -53,7 +53,7 @@ interface ApiClientTest {
 }
 ```
 
-You can use `CallK` to have [`Async`]({{ '/docs/effects/async' | relative_url }}), [`MonadDefer`]({{ '/docs/effects/monaddefer' | relative_url }}) and [`MonadError`]({{ '/docs/effects/monaderror' | relative_url }}) intances as your data wrapper.
+You can use `CallK` to have [`Async`]({{ '/effects/async/' | relative_url }}), [`MonadDefer`]({{ '/effects/monaddefer/' | relative_url }}) and [`MonadError`]({{ '/effects/monaderror/' | relative_url }}) intances as your data wrapper.
 
 ### Using `CallK` with `IO`
 
@@ -84,7 +84,7 @@ createApiClientTest(baseUrl)
 
 ### Handling `Response` with Arrow
 
-Arrow provides the extension function `unwrapBody()` for `Response<A>` to handle it using [`ApplicativeError<F, Throwable>`]({{ '/docs/effects/applicativeerror' | relative_url }}). It wraps any failed response into an `HttpException`, and a missing body with `IllegalStateException`.
+Arrow provides the extension function `unwrapBody()` for `Response<A>` to handle it using [`ApplicativeError<F, Throwable>`]({{ '/effects/applicativeerror/' | relative_url }}). It wraps any failed response into an `HttpException`, and a missing body with `IllegalStateException`.
 
 ```kotlin
 val ioResponse: IO<Response<ResponseMock>>

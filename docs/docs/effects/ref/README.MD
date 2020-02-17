@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Ref
-permalink: /docs/effects/ref/
+permalink: /effects/ref/
 ---
 
 ## Ref
