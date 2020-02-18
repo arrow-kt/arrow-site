@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: Hash
-permalink: /docs/arrow/typeclasses/hash/
-redirect_from:
-  - /docs/typeclasses/hash/
+permalink: /arrow/typeclasses/hash/
 ---
 
 ## Hash
@@ -121,7 +119,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-See [Deriving and creating custom typeclass]({{ '/docs/patterns/glossary' | relative_url }}) to provide your own `Hash` instances for custom datatypes.
+See [Deriving and creating custom typeclass]({{ '/patterns/glossary' | relative_url }}) to provide your own `Hash` instances for custom datatypes.
 
 ### Data types
 

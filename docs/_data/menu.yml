@@ -4,474 +4,474 @@ options:
     nested_options:
 
       - title: Index
-        url: /docs/
+        url: /
 
       - title: Libraries
-        url: /docs/quickstart/libraries/
+        url: /quickstart/libraries/
 
       - title: Blogs & Presentations
-        url: /docs/quickstart/blogs/
+        url: /quickstart/blogs/
 
       - title: Projects & Examples
-        url: /docs/quickstart/projects/
+        url: /quickstart/projects/
 
   - title: API Docs
 
     nested_options:
 
       - title: Type Classes
-        url: /docs/apidocs/arrow-typeclasses/
+        url: /apidocs/arrow-typeclasses/
 
       - title: Core Data Types
-        url: /docs/apidocs/arrow-core/
+        url: /apidocs/arrow-core/
 
       - title: Core Extensions
-        url: /docs/apidocs/arrow-instances-core/
+        url: /apidocs/arrow-instances-core/
 
       - title: Effects
-        url: /docs/apidocs/arrow-effects/
+        url: /apidocs/arrow-effects/
 
       - title: Effects Extensions
-        url: /docs/apidocs/arrow-effects/
+        url: /apidocs/arrow-effects/
 
       - title: Effects Coroutines
-        url: /docs/apidocs/arrow-effects-kotlinx-coroutines/
+        url: /apidocs/arrow-effects-kotlinx-coroutines/
 
       - title: Effects Coroutines Extensions
-        url: /docs/apidocs/arrow-effects-kotlinx-coroutines-instances/
+        url: /apidocs/arrow-effects-kotlinx-coroutines-instances/
 
       - title: Effects Rx2
-        url: /docs/apidocs/arrow-effects-rx2/
+        url: /apidocs/arrow-effects-rx2/
 
       - title: Effects Rx2 Extensions
-        url: /docs/apidocs/arrow-effects-rx2-instances/
+        url: /apidocs/arrow-effects-rx2-instances/
 
       - title: Effects Reactor
-        url: /docs/apidocs/arrow-effects-reactor/
+        url: /apidocs/arrow-effects-reactor/
 
       - title: Effects Reactor Extensions
-        url: /docs/apidocs/arrow-effects-reactor-instances/
+        url: /apidocs/arrow-effects-reactor-instances/
 
       - title: Streams
-        url: /docs/apidocs/arrow-streams/
+        url: /apidocs/arrow-streams/
 
       - title: MTL
-        url: /docs/apidocs/arrow-mtl/
+        url: /apidocs/arrow-mtl/
 
       - title: Optics
-        url: /docs/apidocs/arrow-optics/
+        url: /apidocs/arrow-optics/
 
       - title: Recursion
-        url: /docs/apidocs/arrow-recursion/
+        url: /apidocs/arrow-recursion/
 
       - title: Generic
-        url: /docs/apidocs/arrow-generic/
+        url: /apidocs/arrow-generic/
 
       - title: Free
-        url: /docs/apidocs/arrow-free/
+        url: /apidocs/arrow-free/
 
   - title: Patterns
 
     nested_options:
 
       - title: Glossary
-        url: /docs/patterns/glossary/
+        url: /patterns/glossary/
 
       - title: Error Handling
-        url: /docs/patterns/error_handling/
+        url: /patterns/error_handling/
 
       - title: Dependency Injection
-        url: /docs/patterns/dependency_injection/
+        url: /patterns/dependency_injection/
 
       - title: The Monad Tutorial
-        url: /docs/patterns/monads/
+        url: /patterns/monads/
 
       - title: Monad Comprehensions
-        url: /docs/patterns/monad_comprehensions/
+        url: /patterns/monad_comprehensions/
 
       - title: Polymorphic Programs
-        url: /docs/patterns/polymorphic_programs/
+        url: /patterns/polymorphic_programs/
 
       - title: Free Algebras
-        url: /docs/patterns/free_algebras/
+        url: /patterns/free_algebras/
 
   - title: Data Types
 
     nested_options:
 
       - title: Intro
-        url: /docs/datatypes/intro/
+        url: /datatypes/intro/
 
       - title: Basic Types
-        url: /docs/datatypes/basic/
+        url: /datatypes/basic/
 
       - title: Option
-        url: /docs/arrow/core/option/
+        url: /arrow/core/option/
 
       - title: Either
-        url: /docs/arrow/core/either/
+        url: /arrow/core/either/
 
       - title: Try
-        url: /docs/arrow/core/try/
+        url: /arrow/core/try/
 
       - title: Validated
-        url: /docs/arrow/data/validated/
+        url: /arrow/data/validated/
 
       - title: NonEmptyList
-        url: /docs/arrow/data/nonemptylist/
+        url: /arrow/data/nonemptylist/
 
       - title: ListK
-        url: /docs/arrow/data/listk/
+        url: /arrow/data/listk/
 
       - title: SequenceK
-        url: /docs/arrow/data/sequencek/
+        url: /arrow/data/sequencek/
 
       - title: SetK
-        url: /docs/arrow/data/setk/
+        url: /arrow/data/setk/
 
       - title: MapK
-        url: /docs/arrow/data/mapk/
+        url: /arrow/data/mapk/
 
       - title: SortedMapK
-        url: /docs/arrow/data/sortedmapk/
+        url: /arrow/data/sortedmapk/
 
       - title: Ior
-        url: /docs/arrow/data/ior/
+        url: /arrow/data/ior/
 
       - title: Id
-        url: /docs/arrow/core/id/
+        url: /arrow/core/id/
 
       - title: Reader
-        url: /docs/arrow/data/reader/
+        url: /arrow/data/reader/
 
       - title: Kleisli
-        url: /docs/arrow/data/kleisli/
+        url: /arrow/data/kleisli/
 
       - title: State
-        url: /docs/arrow/data/state/
+        url: /arrow/data/state/
 
       - title: StateT
-        url: /docs/arrow/data/statet/
+        url: /arrow/data/statet/
 
       - title: Store
-        url: /docs/arrow/data/store/
+        url: /arrow/data/store/
 
       - title: Moore
-        url: /docs/arrow/data/moore/
+        url: /arrow/data/moore/
 
       - title: Sum
-        url: /docs/arrow/data/moore/
+        url: /arrow/data/moore/
 
       - title: Day
-        url: /docs/arrow/data/day/
+        url: /arrow/data/day/
 
       - title: WriterT
-        url: /docs/arrow/data/writert/
+        url: /arrow/data/writert/
 
       - title: Trampoline
-        url: /docs/arrow/free/trampoline/
+        url: /arrow/free/trampoline/
 
       - title: Coproduct
-        url: /docs/arrow/data/coproduct/
+        url: /arrow/data/coproduct/
 
       - title: Eval
-        url: /docs/arrow/core/eval/
+        url: /arrow/core/eval/
 
       - title: OptionT
-        url: /docs/arrow/data/optiont/
+        url: /arrow/data/optiont/
 
       - title: EitherT
-        url: /docs/arrow/data/eithert/
+        url: /arrow/data/eithert/
 
       - title: Function0
-        url: /docs/arrow/core/function0/
+        url: /arrow/core/function0/
 
       - title: Function1
-        url: /docs/arrow/core/function1/
+        url: /arrow/core/function1/
 
       - title: Const
-        url: /docs/arrow/typeclasses/const/
+        url: /arrow/typeclasses/const/
 
   - title: Type Classes
 
     nested_options:
 
       - title: Intro
-        url: /docs/typeclasses/intro/
+        url: /typeclasses/intro/
 
       - title: Show
-        url: /docs/arrow/typeclasses/show/
+        url: /arrow/typeclasses/show/
 
       - title: Eq
-        url: /docs/arrow/typeclasses/eq/
+        url: /arrow/typeclasses/eq/
 
       - title: Hash
-        url: /docs/arrow/typeclasses/hash
+        url: /arrow/typeclasses/hash
 
       - title: Order
-        url: /docs/arrow/typeclasses/order/
+        url: /arrow/typeclasses/order/
 
       - title: Semigroup
-        url: /docs/arrow/typeclasses/semigroup/
+        url: /arrow/typeclasses/semigroup/
 
       - title: Monoid
-        url: /docs/arrow/typeclasses/monoid/
+        url: /arrow/typeclasses/monoid/
 
       - title: Foldable
-        url: /docs/arrow/typeclasses/foldable/
+        url: /arrow/typeclasses/foldable/
 
       - title: Bifoldable
-        url: /docs/arrow/typeclasses/bifoldable/
+        url: /arrow/typeclasses/bifoldable/
 
       - title: Traverse
-        url: /docs/arrow/typeclasses/traverse/
+        url: /arrow/typeclasses/traverse/
 
       - title: Reducible
-        url: /docs/arrow/typeclasses/reducible/
+        url: /arrow/typeclasses/reducible/
 
       - title: TraverseFilter
-        url: /docs/arrow/mtl/typeclasses/traversefilter/
+        url: /arrow/mtl/typeclasses/traversefilter/
 
       - title: Functor
-        url: /docs/arrow/typeclasses/functor/
+        url: /arrow/typeclasses/functor/
 
       - title: FunctorFilter
-        url: /docs/arrow/mtl/typeclasses/functorfilter/
+        url: /arrow/mtl/typeclasses/functorfilter/
 
       - title: Applicative
-        url: /docs/arrow/typeclasses/applicative/
+        url: /arrow/typeclasses/applicative/
 
       - title: ApplicativeError
-        url: /docs/arrow/typeclasses/applicativeerror/
+        url: /arrow/typeclasses/applicativeerror/
 
       - title: Monad
-        url: /docs/arrow/typeclasses/monad/
+        url: /arrow/typeclasses/monad/
 
       - title: MonadError
-        url: /docs/arrow/typeclasses/monaderror/
+        url: /arrow/typeclasses/monaderror/
 
       - title: Bracket
-        url: /docs/arrow/effects/typeclasses/bracket/
+        url: /arrow/effects/typeclasses/bracket/
 
       - title: MonadFilter
-        url: /docs/arrow/mtl/typeclasses/monadfilter/
+        url: /arrow/mtl/typeclasses/monadfilter/
 
       - title: MonadReader
-        url: /docs/arrow/mtl/typeclasses/monadreader/
+        url: /arrow/mtl/typeclasses/monadreader/
 
       - title: MonadWriter
-        url: /docs/arrow/mtl/typeclasses/monadwriter/
+        url: /arrow/mtl/typeclasses/monadwriter/
 
       - title: MonadState
-        url: /docs/arrow/mtl/typeclasses/monadstate
+        url: /arrow/mtl/typeclasses/monadstate
 
       - title: MonadCombine
-        url: /docs/arrow/mtl/typeclasses/monadcombine/
+        url: /arrow/mtl/typeclasses/monadcombine/
 
       - title: Comonad
-        url: /docs/arrow/typeclasses/comonad/
+        url: /arrow/typeclasses/comonad/
 
       - title: Bimonad
-        url: /docs/arrow/typeclasses/bimonad/
+        url: /arrow/typeclasses/bimonad/
 
       - title: Bifunctor
-        url: /docs/arrow/typeclasses/bifunctor
+        url: /arrow/typeclasses/bifunctor
 
       - title: Profunctor
-        url: /docs/arrow/typeclasses/profunctor
+        url: /arrow/typeclasses/profunctor
 
       - title: SemigroupK
-        url: /docs/arrow/typeclasses/semigroupk/
+        url: /arrow/typeclasses/semigroupk/
 
       - title: MonoidK
-        url: /docs/arrow/typeclasses/monoidk/
+        url: /arrow/typeclasses/monoidk/
 
       - title: Inject
-        url: /docs/typeclasses/inject/
+        url: /typeclasses/inject/
 
       - title: Alternative
-        url: /docs/arrow/typeclasses/alternative/
+        url: /arrow/typeclasses/alternative/
 
   - title: Effects
 
     nested_options:
 
       - title: IO
-        url: /docs/effects/io/
+        url: /effects/io/
 
       - title: MonadDefer
-        url: /docs/effects/monaddefer/
+        url: /effects/monaddefer/
 
       - title: Async
-        url: /docs/effects/async/
+        url: /effects/async/
 
       - title: Effect
-        url: /docs/effects/effect/
+        url: /effects/effect/
 
       - title: Promise
-        url: /docs/effects/promise/
+        url: /effects/promise/
 
       - title: Ref
-        url: /docs/effects/ref/
+        url: /effects/ref/
 
   - title: Optics
 
     nested_options:
 
       - title: Optics DSL
-        url: /docs/optics/dsl/
+        url: /optics/dsl/
 
       - title: Iso
-        url: /docs/optics/iso/
+        url: /optics/iso/
 
       - title: Lens
-        url: /docs/optics/lens/
+        url: /optics/lens/
 
       - title: Optional
-        url: /docs/optics/optional/
+        url: /optics/optional/
 
       - title: Prism
-        url: /docs/optics/prism/
+        url: /optics/prism/
 
       - title: Getter
-        url: /docs/optics/getter/
+        url: /optics/getter/
 
       - title: Setter
-        url: /docs/optics/setter/
+        url: /optics/setter/
 
       - title: Fold
-        url: /docs/optics/fold/
+        url: /optics/fold/
 
       - title: Traversal
-        url: /docs/optics/traversal/
+        url: /optics/traversal/
 
       - title: Cons
-        url: /docs/optics/cons
+        url: /optics/cons
 
       - title: Snoc
-        url: /docs/optics/snoc/
+        url: /optics/snoc/
 
       - title: At
-        url: /docs/optics/at/
+        url: /optics/at/
 
       - title: Index
-        url: /docs/optics/index/
+        url: /optics/index/
 
       - title: FilterIndex
-        url: /docs/optics/filterindex/
+        url: /optics/filterindex/
 
       - title: Each
-        url: /docs/optics/each/
+        url: /optics/each/
 
   - title: Λrrow Query Language
 
     nested_options:
 
       - title: Λrrow Query Language
-        url: /docs/aql/intro
+        url: /aql/intro
 
       - title: select
-        url: /docs/aql/select
+        url: /aql/select
 
       - title: from
-        url: /docs/aql/from
+        url: /aql/from
 
       - title: where
-        url: /docs/aql/where
+        url: /aql/where
 
       - title: groupBy
-        url: /docs/aql/groupby
+        url: /aql/groupby
 
       - title: orderBy
-        url: /docs/aql/orderby
+        url: /aql/orderby
 
       - title: sum
-        url: /docs/aql/sum
+        url: /aql/sum
 
       - title: union
-        url: /docs/aql/union
+        url: /aql/union
 
       - title: Custom Data Types
-        url: /docs/aql/custom
+        url: /aql/custom
 
   - title: Generic
     nested_options:
 
           - title: Coproduct
-            url: /docs/generic/coproduct
+            url: /generic/coproduct
 
           - title: Product
-            url: /docs/generic/product/
+            url: /generic/product/
 
   - title: Integrations
 
     nested_options:
 
       - title: Rx2
-        url: /docs/integrations/rx2/
+        url: /integrations/rx2/
 
       - title: Reactor
-        url: /docs/integrations/reactor/
+        url: /integrations/reactor/
 
       - title: kotlinx.coroutines
-        url: /docs/integrations/kotlinxcoroutines/
+        url: /integrations/kotlinxcoroutines/
 
       - title: Retrofit
-        url: /docs/integrations/retrofit/
+        url: /integrations/retrofit/
 
       - title: KindedJ
-        url: /docs/integrations/kindedj/
+        url: /integrations/kindedj/
 
   - title: Free
 
     nested_options:
 
       - title: Free
-        url: /docs/free/free/
+        url: /free/free/
 
       - title: FreeApplicative
-        url: /docs/free/freeapplicative/
+        url: /free/freeapplicative/
 
       - title: Cofree
-        url: /docs/free/cofree/
+        url: /free/cofree/
 
       - title: Yoneda
-        url: /docs/free/yoneda/
+        url: /free/yoneda/
 
       - title: Coyoneda
-        url: /docs/free/coyoneda/
+        url: /free/coyoneda/
 
   - title: Recursion Schemes
 
     nested_options:
 
       - title: Intro
-        url: /docs/recursion/intro/
+        url: /recursion/intro/
 
       - title: Recursive
-        url: /docs/recursion/recursive/
+        url: /recursion/recursive/
 
       - title: Corecursive
-        url: /docs/recursion/corecursive/
+        url: /recursion/corecursive/
 
       - title: Birecursive
-        url: /docs/recursion/birecursive/
+        url: /recursion/birecursive/
 
       - title: Mu
-        url: /docs/recursion/mu/
+        url: /recursion/mu/
 
       - title: Nu
-        url: /docs/recursion/nu/
+        url: /recursion/nu/
 
       - title: Fix
-        url: /docs/recursion/fix/
+        url: /recursion/fix/
 
   - title: Legal
 
     nested_options:
 
       - title: Credits
-        url: /docs/legal/credits/
+        url: /legal/credits/
 
       - title: Licenses
-        url: /docs/legal/licenses/
+        url: /legal/licenses/

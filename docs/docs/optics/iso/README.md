@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Iso
-permalink: /docs/optics/iso/
+permalink: /optics/iso/
 ---
 
 ## Iso

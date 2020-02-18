@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: State
-permalink: /docs/arrow/data/state/
-redirect_from:
-  - /docs/datatypes/state/
+permalink: /arrow/data/state/
 video: GcXC0xARSXg
 ---
 

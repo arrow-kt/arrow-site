@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: Kleisli
-permalink: /docs/arrow/data/kleisli/
-redirect_from:
-  - /docs/datatypes/kleisli/
+permalink: /arrow/data/kleisli/
 video: vAdhMJWnBUI
 ---
 

@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: OptionT
-permalink: /docs/arrow/data/optiont/
-redirect_from:
-  - /docs/datatypes/optiont/
+permalink: /arrow/data/optiont/
 video: EWfxL9yBUJo
 ---
 
@@ -227,7 +225,7 @@ import arrow.core.*
 DataType(OptionT::class).tcMarkdownList()
 ```
 
-Take a look at the [`EitherT` docs]({{ '/docs/arrow/data/eithert' | relative_url }}) for an alternative version of this content with the `EitherT` monad transformer
+Take a look at the [`EitherT` docs]({{ '/arrow/data/eithert' | relative_url }}) for an alternative version of this content with the `EitherT` monad transformer
 
 ## Credits
 

@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Intro to Recursion Schemes
-permalink: /docs/recursion/intro/
+permalink: /recursion/intro/
 ---
 
 ## Recursion Schemes
@@ -160,7 +160,7 @@ import arrow.recursion.data.*
 typealias IntFixList = Fix<ForIntListPattern>
 ```
 
-So why do this? We can now define a [Functor]({{ '/docs/arrow/typeclasses/functor' | relative_url }}) instance for 
+So why do this? We can now define a [Functor]({{ '/arrow/typeclasses/functor' | relative_url }}) instance for
 `IntListPattern`, allowing us to traverse into the structure.
 
 ```kotlin
@@ -181,8 +181,8 @@ for any recursive data structure) by using `map` to recursively descend into the
 
 #### Recursive and Corecursive
 
-The [Recursive]({{ '/docs/recursion/recursive' | relative_url }}) typeclass provides `cata`, and the 
-[Corecursive]({{ '/docs/recursion/recursive' | relative_url }}) typeclass provides `ana`, which are very
+The [Recursive]({{ '/recursion/recursive' | relative_url }}) typeclass provides `cata`, and the
+[Corecursive]({{ '/recursion/recursive' | relative_url }}) typeclass provides `ana`, which are very
 similar to fold and unfold.
 
 ```kotlin
@@ -238,15 +238,15 @@ safe.
 
 #### Typeclasses
 
-- [Recursive]({{ '/docs/recursion/recursive' | relative_url }})
-- [Corecursive]({{ '/docs/recursion/recursive' | relative_url }})
-- [Birecursive]({{ '/docs/recursion/recursive' | relative_url }})
+- [Recursive]({{ '/recursion/recursive' | relative_url }})
+- [Corecursive]({{ '/recursion/recursive' | relative_url }})
+- [Birecursive]({{ '/recursion/recursive' | relative_url }})
 
 #### Datatypes
 
-- [Fix]({{ 'docs/recursion/fix' | relative_url }})
-- [Mu]({{ 'docs/recursion/mu' | relative_url }})
-- [Nu]({{ 'docs/recursion/nu' | relative_url }})
+- [Fix]({{ '/recursion/fix' | relative_url }})
+- [Mu]({{ '/recursion/mu' | relative_url }})
+- [Nu]({{ '/recursion/nu' | relative_url }})
 
 ## Credits
 

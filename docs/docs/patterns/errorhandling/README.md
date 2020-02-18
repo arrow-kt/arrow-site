@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Functional Error Handling
-permalink: /docs/patterns/error_handling/
+permalink: /patterns/error_handling/
 ---
 
 ## Functional Error Handling
@@ -121,7 +121,7 @@ Arrow provide proper datatypes and typeclasses to represent exceptional cases.
 
 ### Option
 
-We use [`Option`](/docs/arrow/core/option) to model the potential absence of a value
+We use [`Option`]({{'/arrow/core/option' | relative_url }}) to model the potential absence of a value
 
 When using `Option` our previous example may look like:
 
@@ -134,8 +134,8 @@ fun aim(): Option<Target> = None
 fun launch(target: Target, nuke: Nuke): Option<Impacted> = Some(Impacted)
 ```
 
-It's easy to work with [`Option`](/docs/arrow/core/option) if your lang supports [Monad Comprehensions]({{ '/docs/patterns/monad_comprehensions' | relative_url }}) or special syntax for them.
-Arrow provides [monadic comprehensions]({{ '/docs/patterns/monad_comprehensions' | relative_url }})  for all datatypes for which a [`Monad`](/docs/arrow/typeclasses/monad) instance exists built atop coroutines.
+It's easy to work with [`Option`]({{'/arrow/core/option' | relative_url }}) if your lang supports [Monad Comprehensions]({{ '/patterns/monad_comprehensions' | relative_url }}) or special syntax for them.
+Arrow provides [monadic comprehensions]({{ '/patterns/monad_comprehensions' | relative_url }})  for all datatypes for which a [`Monad`]({{'/arrow/typeclasses/monad' | relative_url }}) instance exists built atop coroutines.
 
 ```kotlin
 import arrow.typeclasses.*
@@ -163,7 +163,7 @@ In the next example we are going to use `Try` to deal with potentially thrown ex
 
 ### Try
 
-We use [`Try`]({{ '/docs/arrow/core/try' | relative_url }}) when we want to be defensive about a computation that may fail with a runtime exception
+We use [`Try`]({{ '/arrow/core/try' | relative_url }}) when we want to be defensive about a computation that may fail with a runtime exception
 
 How would our example look like implemented with `Try`?
 
@@ -226,7 +226,7 @@ We should redefine our functions to express that their result is not just a `Nuk
 
 ### Either
 
-When dealing with a known alternate path we model return types as [`Either`]({{ '/docs/arrow/core/either' | relative_url }})
+When dealing with a known alternate path we model return types as [`Either`]({{ '/arrow/core/either' | relative_url }})
 Either represents the presence of either a `Left` value or a `Right` value.
 By convention most functional programing libraries choose `Left` as the exceptional case and `Right` as the success value.
 
@@ -270,7 +270,7 @@ fun attackEither(): Either<NukeException, Impacted> =
     impact
    }.fix()
   }
-  
+
 attackEither()
 //Left(MissedByMeters(5))
 ```
@@ -278,11 +278,11 @@ attackEither()
 We have seen so far how we can use `Option`, `Try` and `Either` to handle exceptions in a purely functional way.
 
 The question now is, can we further generalize error handling and write this code in a way that is abstract from the actual datatypes that it uses.
-Since Arrow supports typeclasses, emulated higher kinds and higher order abstractions we can rewrite this in a fully polymorphic way thanks to [`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }})
+Since Arrow supports typeclasses, emulated higher kinds and higher order abstractions we can rewrite this in a fully polymorphic way thanks to [`MonadError`]({{ '/arrow/typeclasses/monaderror' | relative_url }})
 
 ### MonadError
 
-[`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }}) is a typeclass that allows us to handle error cases inside monadic contexts such as the ones we have seen with `Either`, `Try` and `Option`.
+[`MonadError`]({{ '/arrow/typeclasses/monaderror' | relative_url }}) is a typeclass that allows us to handle error cases inside monadic contexts such as the ones we have seen with `Either`, `Try` and `Option`.
 Typeclasses allows us to code focusing on the behaviors and not the datatypes that implements them.
 
 Arrow provides the following `MonadError` instances for `Option`, `Try` and `Either`
@@ -327,7 +327,7 @@ fun <F> MonadError<F, NukeException>.attack():Kind<F, Impacted> =
   }
 ```
 
-Or since `arm()` and `bind()` are operations that do not depend on each other we don't need the [Monad Comprehensions]({{ '/docs/patterns/monad_comprehensions' | relative_url }}) here and we can express our logic as:
+Or since `arm()` and `bind()` are operations that do not depend on each other we don't need the [Monad Comprehensions]({{ '/patterns/monad_comprehensions' | relative_url }}) here and we can express our logic as:
 
 ```kotlin
 fun <F> MonadError<F, NukeException>.attack1(ME): Kind<F, Impacted> =
@@ -399,10 +399,10 @@ sealed class Rules<F>(A: ApplicativeError<F, Nel<ValidationError>>) : Applicativ
 
   object ErrorAccumulationStrategy :
     Rules<ValidatedPartialOf<Nel<ValidationError>>>(Validated.applicativeError(NonEmptyList.semigroup()))
-  
+
   object FailFastStrategy :
     Rules<EitherPartialOf<Nel<ValidationError>>>(Either.applicativeError())
-  
+
   companion object {
     infix fun <A> failFast(f: FailFastStrategy.() -> A): A = f(FailFastStrategy)
     infix fun <A> accumulateErrors(f: ErrorAccumulationStrategy.() -> A): A = f(ErrorAccumulationStrategy)
@@ -432,7 +432,7 @@ Rules accumulateErrors {
 Rules failFast {
   listOf(
     FormField("Invalid Email Domain Label", "nowhere.com"),
-    FormField("Too Long Email Label", "nowheretoolong${(0..251).map { "g" }}"), //this fails fast 
+    FormField("Too Long Email Label", "nowheretoolong${(0..251).map { "g" }}"), //this fails fast
     FormField("Valid Email Label", "getlost@nowhere.com")
   ).map { it.validateEmail() }
 }

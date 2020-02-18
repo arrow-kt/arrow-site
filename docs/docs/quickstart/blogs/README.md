@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Blogs & Presentations
-permalink: /docs/quickstart/blogs/
+permalink: /quickstart/blogs/
 ---
 
 ## Blogs & Presentations
@@ -119,7 +119,7 @@ Nov '17 - version 0.3.11
 
 ### Happy Path: Kotlin + Actors + Arrow
 
-[@javipacheco](https://github.com/javipacheco) creates a Proof of Concept architecture for Android using the Actor pattern and modelling the domain with [`Either`]({{ '/docs/arrow/core/either' | relative_url }}).
+[@javipacheco](https://github.com/javipacheco) creates a Proof of Concept architecture for Android using the Actor pattern and modelling the domain with [`Either`]({{ '/arrow/core/either' | relative_url }}).
 
 [Happy Path: Kotlin + Actors + Arrow](https://medium.com/@javipacheco/happy-path-kotlin-actors-arrow-proof-of-concept-322e9099d2ea)
 
@@ -127,7 +127,7 @@ Nov '17 - version 0.3.11
 
 ### Handling exceptions in Arrow
 
-[@uris77](https://github.com/uris77) explains how to use [`Try`]({{ '/docs/arrow/core/try' | relative_url }}) in real world examples.
+[@uris77](https://github.com/uris77) explains how to use [`Try`]({{ '/arrow/core/try' | relative_url }}) in real world examples.
 
 [Handling Kotlin Exceptions with Arrow – A Functional Approach](https://www.spantree.net/blog/2017/09/15/kotlin-exception-handling-with-kategory.html)
 
@@ -136,7 +136,7 @@ Sept '17 - version 0.3.11
 ### Optics and Type Classes in Arrow
 
 [@msya](https://github.com/msya) explains how to use various optics and type classes in Arrow. He discusses optics such as 
-[`Lens`]({{ '/docs/optics/lens' | relative_url }}) and [`Iso`]({{ '/docs/optics/iso' | relative_url }}). He also goes over the purpose for type classes and how [KEEP-87](https://github.com/Kotlin/KEEP/pull/87) will make it easier to implement them.
+[`Lens`]({{ '/optics/lens' | relative_url }}) and [`Iso`]({{ '/optics/iso' | relative_url }}). He also goes over the purpose for type classes and how [KEEP-87](https://github.com/Kotlin/KEEP/pull/87) will make it easier to implement them.
 
 [Functional Programming with Arrow](https://speakerdeck.com/heyitsmohit/functional-programming-with-arrow)
 

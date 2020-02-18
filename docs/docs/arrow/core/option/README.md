@@ -1,10 +1,7 @@
 ---
 layout: docs
 title: Option
-permalink: /docs/arrow/core/option/
-redirect_from:
-  - /docs/datatypes/option/
-
+permalink: /arrow/core/option/
 video: 5SFTbphderE
 ---
 
@@ -170,7 +167,7 @@ fun foo() {
 
 Arrow contains `Option` instances for many useful typeclasses that allows you to use and transform optional values
 
-[`Functor`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }})
+[`Functor`]({{ '/arrow/typeclasses/functor/' | relative_url }})
 
 Transforming the inner contents
 
@@ -183,7 +180,7 @@ Option.functor().run {
 }
 ```
 
-[`Applicative`]({{ '/docs/arrow/typeclasses/applicative/' | relative_url }})
+[`Applicative`]({{ '/arrow/typeclasses/applicative/' | relative_url }})
 
 Computing over independent values
 
@@ -193,7 +190,7 @@ import arrow.instances.option.applicative.*
 tupled(Some(1), Some("Hello"), Some(20.0))
 ```
 
-[`Monad`]({{ '/docs/arrow/typeclasses/monad/' | relative_url }})
+[`Monad`]({{ '/arrow/typeclasses/monad/' | relative_url }})
 
 Computing over dependent values ignoring absence
 

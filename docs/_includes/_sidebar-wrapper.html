@@ -13,7 +13,7 @@
     <ul class="sidebar-nav">
         {% for item in site.data.menu.options %}
         <li class="sidebar-nav-item">
-            <a href="{% if item.url %}{{item.url}}{% else %}#{% endif %}">
+            <a href="{% if item.url %}{{item.url | relative_url }}{% else %}#{% endif %}">
                 <span>{{ item.title }}</span>
                 {% if item.nested_options %}
                 <i class="fa fa-angle-right"></i>

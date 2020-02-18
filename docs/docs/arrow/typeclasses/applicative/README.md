@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: Applicative
-permalink: /docs/arrow/typeclasses/applicative/
-redirect_from:
-  - /docs/typeclasses/applicative/
+permalink: /arrow/typeclasses/applicative/
 ---
 
 ## Applicative
@@ -15,7 +13,7 @@ The `Applicative` typeclass abstracts the ability to lift values and apply funct
 Examples of type constructors that can implement instances of the Applicative typeclass include `Option`, `NonEmptyList`,
 `List` and many other datatypes that include a `just` and either `ap` function. `ap` may be derived for monadic types that include a `Monad` instance via `flatMap`.
 
-`Applicative` includes all combinators present in [`Functor`]({{ '/docs/arrow/typeclasses/functor/' | relative_url }}).
+`Applicative` includes all combinators present in [`Functor`]({{ '/arrow/typeclasses/functor/' | relative_url }}).
 
 ### Applicative Builder examples
 
@@ -106,7 +104,7 @@ Arrow provides [`ApplicativeLaws`][applicative_law_source]{:target="_blank"} in 
 
 Arrow already provides Applicative instances for most common datatypes both in Arrow and the Kotlin stdlib.
 
-See [Deriving and creating custom typeclass]({{ '/docs/patterns/glossary' | relative_url }}) to provide your own Applicative instances for custom datatypes.
+See [Deriving and creating custom typeclass]({{ '/patterns/glossary' | relative_url }}) to provide your own Applicative instances for custom datatypes.
 
 ### Data types
 
@@ -117,7 +115,7 @@ import arrow.typeclasses.Applicative
 TypeClass(Applicative::class).dtMarkdownList()
 ```
 
-Additionally all instances of [`Monad`]({{ '/docs/arrow/typeclasses/monad' | relative_url }}) and their MTL variants implement the `Applicative` typeclass directly
+Additionally all instances of [`Monad`]({{ '/arrow/typeclasses/monad' | relative_url }}) and their MTL variants implement the `Applicative` typeclass directly
 since they are all subtypes of `Applicative`.
 
 ank_macro_hierarchy(arrow.typeclasses.Applicative)

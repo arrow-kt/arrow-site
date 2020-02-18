@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Yoneda
-permalink: /docs/free/yoneda/
+permalink: /free/yoneda/
 ---
 
 ## Yoneda
@@ -18,4 +18,4 @@ import arrow.free.*
 DataType(Yoneda::class).tcMarkdownList()
 ```
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

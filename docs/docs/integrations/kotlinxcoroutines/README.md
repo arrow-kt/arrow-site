@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: kotlinx.coroutines
-permalink: /docs/integrations/kotlinxcoroutines/
+permalink: /integrations/kotlinxcoroutines/
 ---
 
 ## kotlinx.coroutines
@@ -26,13 +26,13 @@ async {
 }
 ```
 
-Does it look familiar? Yes! It's the same as our [comprehensions]({{ '/docs/patterns/monad_comprehensions' | relative_url }})!
+Does it look familiar? Yes! It's the same as our [comprehensions]({{ '/patterns/monad_comprehensions' | relative_url }})!
 
 ### Improvements over the library
 
-Unlike [RxJava]({{ '/docs/integrations/rx2' | relative_url }}), `Deferred` doesn't come with a natural set of operations for error handling and recovery,
+Unlike [RxJava]({{ '/integrations/rx2' | relative_url }}), `Deferred` doesn't come with a natural set of operations for error handling and recovery,
 requiring users to use imperative try/catch blocks.
-Luckily, Arrow comes with its own set of error handling functions in its integration with [`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }}).
+Luckily, Arrow comes with its own set of error handling functions in its integration with [`MonadError`]({{ '/arrow/typeclasses/monaderror' | relative_url }}).
 
 See this faulty block
 ```kotlin
@@ -118,7 +118,7 @@ It is also posible to `await()` on the wrapper like you would on `Deferred`, but
 
 ### Error handling & recovery
 
-[`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }}) can be used to start a [Monad Comprehension]({{ '/docs/patterns/monad_comprehensions' | relative_url }}) using the method `bindingCatch`, with all its benefits.
+[`MonadError`]({{ '/arrow/typeclasses/monaderror' | relative_url }}) can be used to start a [Monad Comprehension]({{ '/patterns/monad_comprehensions' | relative_url }}) using the method `bindingCatch`, with all its benefits.
 These benefits include capturing all exceptions that happen inside the block.
 
 ```kotlin
@@ -141,7 +141,7 @@ ForDeferredK extensions {
  // Failure(ArithmeticException("/ by zero"))
 ```
 
-Several recovery methods are provided, which you can find in the documentation for [`ApplicativeError`]({{ '/docs/arrow/typeclasses/applicativeerror' | relative_url }}).
+Several recovery methods are provided, which you can find in the documentation for [`ApplicativeError`]({{ '/arrow/typeclasses/applicativeerror' | relative_url }}).
 The most common ones are `handleError` and `handleErrorWith`.
 
 The former allows you to return a single value from a faulty block
@@ -166,7 +166,7 @@ recoveryArrowWrapper.unsafeAttemptSync()
 
 `DeferredK` created with `bindingCatch` behave the same way regular `Deferred` do, including cancellation by disposing the subscription.
 
-Note that [`MonadDefer`]({{ '/docs/effects/monaddefer' | relative_url }}) provides an alternative to `bindingCatch` called `bindingCancellable` returning a `arrow.Disposable`.
+Note that [`MonadDefer`]({{ '/effects/monaddefer' | relative_url }}) provides an alternative to `bindingCatch` called `bindingCancellable` returning a `arrow.Disposable`.
 Invoking this `Disposable` causes an `BindingCancellationException` in the chain which needs to be handled by the subscriber, similarly to what `Deferred` does.
 
 ```kotlin

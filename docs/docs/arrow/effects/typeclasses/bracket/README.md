@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: Bracket
-permalink: /docs/arrow/effects/typeclasses/bracket/
-redirect_from:
-  - /docs/typeclasses/bracket/
+permalink: /arrow/effects/typeclasses/bracket/
 video: EUqg3fSahhk
 ---
 
@@ -17,7 +15,7 @@ The `Bracket` Type class abstracts the ability to safely **acquire**, **use**, a
 Essentially, it could be considered the functional programming equivalent to the well known imperative
 `try/catch/finally` structure.
 
-`Bracket` extends [`MonadError`]({{ '/docs/arrow/typeclasses/monaderror' | relative_url }}).
+`Bracket` extends [`MonadError`]({{ '/arrow/typeclasses/monaderror' | relative_url }}).
 
 It ensures that the acquired resource is released at the end after using it, **even if the using action throws an error**.
 That ensures that no errors are swallowed.
@@ -50,11 +48,11 @@ fun closeFile(file: File): IO<Unit> = IO { file.close() }
 fun fileToString(file: File): IO<String> = IO { file.toString() }
 ```
 
-Note that we wrapped them into [`IO`]({{ '/docs/effects/io' | relative_url }}). [`IO`]({{ '/docs/effects/io' | relative_url }})
+Note that we wrapped them into [`IO`]({{ '/effects/io' | relative_url }}). [`IO`]({{ '/effects/io' | relative_url }})
 is able to wrap any side effecting computation to make it pure. In a real world system, these operations would contain
 side effects since they'd end up accessing the file system.
 
-Read the [`IO`]({{ '/docs/effects/io' | relative_url }}) docs for more context on this.
+Read the [`IO`]({{ '/effects/io' | relative_url }}) docs for more context on this.
 
 Now, let's say we want to open a file, do some work with it, and then close it. With `Bracket`, we could make that
 process look like this:
@@ -95,12 +93,12 @@ Note that the result is still an `IO.Async` operation, which means it's still de
 
 We've mentioned that `Bracket` is agnostic of whether the `use` lambda is computed synchronously or asynchronously.
 That's because it's able to run over any data type `F` that can support synchronous and asynchronous
-computations, like [`IO`]({{ '/docs/effects/io' | relative_url }}), [`Observable`]({{ '/docs/integrations/rx2' | relative_url }})
-or [`Deferred`]({{ '/docs/integrations/kotlinxcoroutines' | relative_url }}).
+computations, like [`IO`]({{ '/effects/io' | relative_url }}), [`Observable`]({{ '/integrations/rx2' | relative_url }})
+or [`Deferred`]({{ '/integrations/kotlinxcoroutines' | relative_url }}).
 
 It basically targets what in Functional Programming is known as a "Higher Kind".
 
-There's a complete [section about this pattern]({{ '/docs/patterns/polymorphic_programs' | relative_url }}) in the
+There's a complete [section about this pattern]({{ '/patterns/polymorphic_programs' | relative_url }}) in the
 docs.
 
 Let's learn more about how `Bracket` can support this pattern as a Type class with a basic example showcasing this high level of abstraction technique.
@@ -353,7 +351,7 @@ Oftentimes you may find the need to provide your own for unsupported datatypes.
 You may create or automatically derive instances of `Bracket` for your own datatypes which you will be able to use in
 the context of abstract polymorphic code.
 
-See [Deriving and creating custom typeclass]({{ '/docs/patterns/glossary' | relative_url }})
+See [Deriving and creating custom typeclass]({{ '/patterns/glossary' | relative_url }})
 
 ### Data types
 

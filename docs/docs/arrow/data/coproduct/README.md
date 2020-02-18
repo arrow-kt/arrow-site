@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: Coproduct
-permalink: /docs/arrow/data/coproduct/
-redirect_from:
-  - /docs/datatypes/coproduct/
+permalink: /arrow/data/coproduct/
 ---
 
 ## Coproduct
@@ -21,4 +19,4 @@ import arrow.core.*
 DataType(Coproduct::class).tcMarkdownList()
 ```
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

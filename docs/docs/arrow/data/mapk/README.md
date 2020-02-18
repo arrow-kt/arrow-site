@@ -1,9 +1,7 @@
 ---
 layout: docs
 title: MapK
-permalink: /docs/arrow/data/mapk/
-redirect_from:
-  - /docs/datatypes/mapk/
+permalink: /arrow/data/mapk/
 ---
 
 ## MapK
@@ -21,4 +19,4 @@ import arrow.core.*
 DataType(MapK::class).tcMarkdownList()
 ```
 
-TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/docs/datatypes/intro/' | relative_url }}).
+TODO. Meanwhile you can find a short description in the [intro to datatypes]({{ '/datatypes/intro/' | relative_url }}).

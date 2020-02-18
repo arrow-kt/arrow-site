@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Generic
-permalink: /docs/generic/product/
+permalink: /generic/product/
 ---
 
 ## Arrow Generic

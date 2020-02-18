@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Fold
-permalink: /docs/optics/fold/
+permalink: /optics/fold/
 ---
 
 ## Fold
@@ -10,7 +10,7 @@ permalink: /docs/optics/fold/
 beginner
 
 A `Fold` is an optic that can see into a structure and get 0 to N foci.
-It is a generalisation of an instance of [`Foldable`](/docs/arrow/typeclasses/foldable).
+It is a generalisation of an instance of [`Foldable`]({{'/arrow/typeclasses/foldable' | relative_url }}).
 
 Creating a `Fold` can be done by manually defining `foldMap`.
 
