@@ -42,7 +42,7 @@ hello.combineK(commaSpace).combineK(world)
 
 The functions `traverse` and `sequence` come from [`Traverse`]({{'/arrow/typeclasses/traverse/' | relative_url }}).
 
-Traversing a list creates a new container [`Kind<F, A>`]({{'/patterns/glossary/#type-constructors' relative_url }}) by combining the result of a function applied to each element:
+Traversing a list creates a new container [`Kind<F, A>`]({{'/patterns/glossary/#type-constructors' | relative_url }}) by combining the result of a function applied to each element:
 
 ```kotlin:ank
 import arrow.core.*
@@ -71,7 +71,7 @@ Folding a list into a new value, `String` in this case, starting with an initial
 listOf('a', 'b', 'c', 'd', 'e').k().foldLeft("-> ") { x, y -> x + y }
 ```
 
-Or you can apply a list of transformations using `ap` from [`Applicative`]({{'/arrow/typeclasses/applicative/' relative_url }}).
+Or you can apply a list of transformations using `ap` from [`Applicative`]({{'/arrow/typeclasses/applicative/' | relative_url }}).
 
 ```kotlin:ank
 import arrow.instances.*

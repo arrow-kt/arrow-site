@@ -23,7 +23,7 @@
             <ul>
                 {% for nested_item in item.nested_options %}
                 <li>
-                    <a href="{{ nested_item.url }}">
+                    <a href="{{ nested_item.url | relative_url }}">
                         <i class="fa fa-circle"></i>
                         <span>{{ nested_item.title }}</span>
                     </a>
