@@ -42,7 +42,7 @@ options:
         url: /apidocs/arrow-core-extensions/
 
       - title: Core Extra Data Types
-        url: /apidocs/arrow-extras/
+        url: /apidocs/arrow-extras-data/
 
       - title: Core Extra Extensions
         url: /apidocs/arrow-extras-extensions/
@@ -52,12 +52,6 @@ options:
 
       - title: Effects Extensions
         url: /apidocs/arrow-effects-extensions/
-
-      - title: Effects Coroutines
-        url: /apidocs/arrow-effects-kotlinx-coroutines-data/
-
-      - title: Effects Coroutines Extensions
-        url: /apidocs/arrow-effects-kotlinx-coroutines-extensions/
 
       - title: Effects Rx2
         url: /apidocs/arrow-effects-rx2-data/

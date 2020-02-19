@@ -1,6 +1,7 @@
 # Default Front Matter values to be set
 defaults:
-  - scope:
+  -
+    scope:
       path: "apidocs"
       type: "pages"
     values:
