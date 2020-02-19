@@ -9,8 +9,8 @@ options:
       - title: Libraries
         url: /quickstart/libraries/
 
-      - title: Blogs & Presentations
-        url: /quickstart/blogs/
+      - title: Media
+        url: https://media.arrow-kt.io
 
       - title: Projects & Examples
         url: /quickstart/projects/
