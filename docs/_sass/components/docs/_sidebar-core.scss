@@ -4,10 +4,6 @@
   .sidebar-menu {
     .sidebar-menu-item {
       &.active {
-        // > a,
-        // a.active {
-        //   color: $gray-primary;
-        // }
 
         & > button {
           border-left: 4px solid $core-color;
