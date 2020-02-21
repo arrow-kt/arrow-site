@@ -3,10 +3,6 @@
 // -----------------------------------------------
 .sidebar-menu {
   .sidebar-menu-item {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-
     &.active {
       > a,
       a.active {
@@ -30,7 +26,6 @@
     button,
     a {
       display: flex;
-      justify-content: space-between;
       padding: 12px 32px;
       width: 100%;
       font-size: 1.1rem;
@@ -67,8 +62,6 @@
       }
 
       a {
-        display: block;
-        align-items: flex-start;
         font-size: 1rem;
         padding: $base-point-grid ($base-point-grid * 2);
         @include links($white, $white, rgba($white, 0.5), rgba($white, 0.5));

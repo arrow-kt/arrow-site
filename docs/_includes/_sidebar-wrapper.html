@@ -35,11 +35,15 @@
             {{ item.title }}
             <i class="fa fa-angle-right"></i>
           </button>
-          <div class="sub-menu">
+          <ul class="sub-menu">
             {% for nested_item in item.nested_options %}
-            <a class="sidebar-menu-item {% if nested_item.url == page.url %}active{% endif %}" href="{{ nested_item.url | relative_url }}" title="{{ nested_item.title }}">{{ nested_item.title }}</a>
+            <li>
+              <a class="sidebar-menu-item {% if nested_item.url == page.url %}active{% endif %}" href="{{ nested_item.url | relative_url }}" title="{{ nested_item.title }}">
+                {{ nested_item.title }}
+              </a>
+            </li>
             {% endfor %}
-          </div>
+          </ul>
           {% else %}
           <a href="{{ item.url | relative_url }}" title="{{ item.title }}">
             <span>{{ item.title }}</span>
