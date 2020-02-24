@@ -59,9 +59,9 @@
         }
 
         // On click slide down or up the links section
-        $('.cat-dropdown').click(function(e) {
-            e.preventDefault();
-            activate($(this), 300);
+        $('.sidebar-nav > li > a').click(function(e) {
+          e.preventDefault();
+          activate($(this), 300);
         });
 
         var anchorForId = function (id) {

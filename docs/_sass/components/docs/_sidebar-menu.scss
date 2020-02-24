@@ -89,32 +89,30 @@
 }
 
 .sidebar-doc-versions {
-    display: flex;
-    justify-content: center;
+      display: flex;
+      justify-content: center;
 
-    .sidebar-nav-item {
-         width: 100%;
-         &.active {
-             > a {
-               border-color: transparent;
-             }
-           }
-         ul {
-             position: sticky;
-             width: 100%;
-             z-index: 1;
-             box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 16px 0px;
-             background: $brand-primary;
-
-             li {
-               a {
-                 font-size: 0.800rem;
+      #dov-version-dropdown {
+           width: 100%;
+           &.active {
+               > a {
+                 border-color: transparent;
+               }
+               ul {
+                 display: block;
                }
              }
+           ul {
+               position: sticky;
+               li {
+                 a {
+                   font-size: 0.800rem;
+                 }
+               }
 
-             li:nth-child(4) {
-               border-top: solid 1px rgba(255, 255, 255, 0.5);
-             }
-         }
-    }
+               li:nth-child(4) {
+                 border-top: solid 1px rgba(255, 255, 255, 0.5);
+               }
+           }
+      }
 }
