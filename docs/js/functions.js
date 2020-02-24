@@ -60,8 +60,8 @@
 
         // On click slide down or up the links section
         $('.sidebar-nav > li > a').click(function(e) {
-           e.preventDefault();
-           activate($(this), 300);
+            e.preventDefault();
+            activate($(this), 300);
         });
 
         var anchorForId = function (id) {
