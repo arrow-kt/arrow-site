@@ -38,13 +38,13 @@
             $("#video-panel").slideToggle("toggled");
         });
 
-        // /**
-        //  * This function generates the “unrolling” of the secction by adding
-        //  * some classes to the element and applying a jQuery slide action
-        //  *
-        //  * @param el The DOM element on which to perform the action
-        //  * @param speed The desired speed to slide up/down the section
-        //  */
+        /**
+         * This function generates the “unrolling” of the secction by adding
+         * some classes to the element and applying a jQuery slide action
+         *
+         * @param el The DOM element on which to perform the action
+         * @param speed The desired speed to slide up/down the section
+         */
         function activate (el, speed) {
             if (!el.parent().hasClass('active')) {
                 $('.sidebar-nav li ul').slideUp(speed);
@@ -60,8 +60,8 @@
 
         // On click slide down or up the links section
         $('.sidebar-nav > li > a').click(function(e) {
-          e.preventDefault();
-          activate($(this), 300);
+           e.preventDefault();
+           activate($(this), 300);
         });
 
         var anchorForId = function (id) {
