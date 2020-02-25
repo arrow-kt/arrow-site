@@ -19,15 +19,14 @@ jobs:
         architecture: x64
     - name: Validate Gradle Wrapper
       uses: gradle/wrapper-validation-action@v1
+    - name: Checkout orchestrator
+      run: |
+        cd $BASEDIR
+        git clone https://github.com/arrow-kt/arrow.git
     - name: Prepare environment
       run: |
         set -ex
-        sudo apt-get update
-        sudo apt-get install ruby-dev
-        sudo gem install bundler --force
-        sudo gem update --system
-        gem --version
-        echo "$( gem list | grep bundler )"
+        $BASEDIR/arrow/scripts/site-prepare-env.sh
         bundle install --gemfile Gemfile --path vendor/bundle
     - name: Run Ank
       env:
@@ -38,10 +37,6 @@ jobs:
         JAVA_OPTS: -Xms512m -Xmx1024m
         JEKYLL_ENV: production
       run: bundle exec jekyll build -b docs -s build/site -d build/_site
-    - name: Checkout orchestrator
-      run: |
-        cd $BASEDIR
-        git clone https://github.com/arrow-kt/arrow.git
     - name: Generate and validate docs for all the libraries
       run: |
         for repository in $(cat $BASEDIR/arrow/lists/build.txt); do
