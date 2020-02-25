@@ -27,6 +27,7 @@ jobs:
       run: |
         set -ex
         $BASEDIR/arrow/scripts/site-prepare-env.sh
+        sudo apt-get install tree
         bundle install --gemfile Gemfile --path vendor/bundle
     - name: Run Ank
       env:
