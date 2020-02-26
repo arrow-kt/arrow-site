@@ -43,18 +43,19 @@ jobs:
         tree build/_site > $BASEDIR/logs/docs.log
     - name: Generate and validate docs for all the libraries
       run: |
-        for repository in $(cat $BASEDIR/arrow/lists/build.txt); do
-            echo "TODO: remove!!"
-            if [ "$repository" != "arrow-fx" ]; then
-                cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
-                if [ "$repository" != "arrow-docs" ]; then
-                    cd $BASEDIR/$repository
-                    ./gradlew clean dokka
-                fi
-                cd $BASEDIR/$repository ; ./gradlew :arrow-docs:runAnk
-                cd $BASEDIR ; cp -r $repository/arrow-docs/build/site/* arrow-site/build/site/
-            fi
-        done
+        echo "Disable because of errors on master branch for arrow-incubator"
+        #for repository in $(cat $BASEDIR/arrow/lists/build.txt); do
+        #    echo "TODO: remove!!"
+        #    if [ "$repository" != "arrow-fx" ]; then
+        #        cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
+        #        if [ "$repository" != "arrow-docs" ]; then
+        #            cd $BASEDIR/$repository
+        #            ./gradlew clean dokka
+        #        fi
+        #        cd $BASEDIR/$repository ; ./gradlew :arrow-docs:runAnk
+        #        cd $BASEDIR ; cp -r $repository/arrow-docs/build/site/* arrow-site/build/site/
+        #    fi
+        #done
     - name: Build site
       env:
         JAVA_OPTS: -Xms512m -Xmx1024m
@@ -70,18 +71,13 @@ jobs:
                 SHORT_VERSION=$(echo $version | cut -d. -f1-2)
                 cd $BASEDIR/arrow-site
                 ./gradlew clean runAnk
-                for repository in $(cat $BASEDIR/arrow/lists/build.txt); do
-                    echo "TODO: remove!!"
-                    if [ "$repository" != "arrow-fx" ]; then
-                        cd $BASEDIR ; git checkout $version
-                        if [ "$repository" != "arrow-docs" ]; then
-                            cd $BASEDIR/$repository
-                            ./gradlew clean dokka
-                        fi
-                        cd $BASEDIR/$repository ; ./gradlew :arrow-docs:runAnk
-                        cd $BASEDIR ; cp -r $repository/arrow-docs/build/site/* arrow-site/build/site/
-                    fi
-                done
+                cd $BASEDIR
+                git clone -b $version https://github.com/arrow-kt/arrow.git arrow-$version
+                cd arrow-$version
+                sed -i "s/modules {/modules {\\ndocs {\\n_ 'docs'\\n_ 'examples'\\n}/g" settings.gradle
+                ./gradlew clean dokka
+                ./gradlew :arrow-docs:runAnk
+                cp -r modules/docs/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
                 cd $BASEDIR/arrow-site
                 bundle exec jekyll build -b docs/$SHORT_VERSION -s build/site -d build/_site
                 tree build/_site > $BASEDIR/logs/docs-${SHORT_VERSION}.log
