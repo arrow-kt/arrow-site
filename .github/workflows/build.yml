@@ -43,19 +43,13 @@ jobs:
         tree build/_site > $BASEDIR/logs/docs.log
     - name: Generate and validate docs for all the libraries
       run: |
-        echo "Disable because of errors on master branch for arrow-incubator"
-        #for repository in $(cat $BASEDIR/arrow/lists/build.txt); do
-        #    echo "TODO: remove!!"
-        #    if [ "$repository" != "arrow-fx" ]; then
-        #        cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
-        #        if [ "$repository" != "arrow-docs" ]; then
-        #            cd $BASEDIR/$repository
-        #            ./gradlew clean dokka
-        #        fi
-        #        cd $BASEDIR/$repository ; ./gradlew :arrow-docs:runAnk
-        #        cd $BASEDIR ; cp -r $repository/arrow-docs/build/site/* arrow-site/build/site/
-        #    fi
-        #done
+        for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
+            cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
+            $BASEDIR/arrow/scripts/project-run-ank.sh $repository
+            $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
+            $BASEDIR/arrow/scripts/project-locate-doc.sh $repository
+        fi
+        done
     - name: Build site
       env:
         JAVA_OPTS: -Xms512m -Xmx1024m
@@ -77,7 +71,7 @@ jobs:
                 sed -i "s/modules {/modules {\\ndocs {\\n_ 'docs'\\n_ 'examples'\\n}/g" settings.gradle
                 ./gradlew clean dokka
                 ./gradlew :arrow-docs:runAnk
-                cp -r modules/docs/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
+                cp -r modules/docs/arrow-docs/build/site/docs/* $BASEDIR/arrow-site/build/site/
                 cd $BASEDIR/arrow-site
                 bundle exec jekyll build -b docs/$SHORT_VERSION -s build/site -d build/_site
                 tree build/_site > $BASEDIR/logs/docs-${SHORT_VERSION}.log
@@ -86,4 +80,4 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: logs
-        path: $BASEDIR/logs
+        path: ../logs
