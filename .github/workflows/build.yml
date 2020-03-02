@@ -48,7 +48,6 @@ jobs:
             $BASEDIR/arrow/scripts/project-run-ank.sh $repository
             $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
             $BASEDIR/arrow/scripts/project-locate-doc.sh $repository
-        fi
         done
     - name: Build site
       env:
