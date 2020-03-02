@@ -111,7 +111,7 @@ jobs:
                 ./gradlew clean dokka
                 ./gradlew :arrow-docs:runAnk
                 cp -r modules/docs/arrow-docs/build/site/docs/apidocs $BASEDIR/arrow-site/build/site/
-                cp -r modules/docs/arrow-docs/build/site/docs/docs/* $BASEDIR/arrow-site/build/site/
+                cp -r modules/docs/arrow-docs/build/site/docs/arrow-*/* $BASEDIR/arrow-site/build/site/
                 cd $BASEDIR/arrow-site
                 bundle exec jekyll build -b docs/$SHORT_VERSION -s build/site -d build/_site
                 tree build/_site > $BASEDIR/logs/docs-${SHORT_VERSION}.log
