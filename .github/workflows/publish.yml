@@ -61,7 +61,7 @@ jobs:
                 aws s3 cp $file s3://$S3_BUCKET/$file >> aws_sync_jekyll.log
             else
                 echo "Sync $file ..."
-                aws s3 sync $file s3://$S3_BUCKET/$file >> aws_sync_jekyll.log
+                aws s3 sync $file s3://$S3_BUCKET/$file --delete >> aws_sync_jekyll.log
             fi
         done
         #aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID --paths "/*"
@@ -90,7 +90,7 @@ jobs:
         AWS_CLOUDFRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID }}
       run: |
         echo ">>> NEXT VERSION" >> aws_sync_jekyll.log
-        aws s3 sync build/_site s3://$S3_BUCKET/docs/next >> aws_sync_jekyll.log
+        aws s3 sync build/_site s3://$S3_BUCKET/docs/next --delete >> aws_sync_jekyll.log
         #aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID --paths "/*"
     - name: Other versions
       env:
@@ -118,7 +118,7 @@ jobs:
                 rm -f build/_site/index.*
                 tree build/_site > $BASEDIR/logs/docs-${SHORT_VERSION}.log
                 echo ">>> $SHORT_VERSION VERSION" >> aws_sync_jekyll.log
-                aws s3 sync build/_site s3://$S3_BUCKET/docs/$SHORT_VERSION >> aws_sync_jekyll.log
+                aws s3 sync build/_site s3://$S3_BUCKET/docs/$SHORT_VERSION --delete >> aws_sync_jekyll.log
                 #aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID --paths "/*"
             done            
         fi
