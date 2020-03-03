@@ -1,3 +1,14 @@
+{% assign doc-link = 'core/' %}
+{% if cat_id == 'incubator' %}
+{% assign doc-link = 'aql/intro/' %}
+{% elsif cat_id  == 'fx' %}
+{% assign doc-link = 'fx/' %}
+{% elsif cat_id  == 'optics' %}
+{% assign doc-link = 'optics/dsl/' %}
+{% endif %}
+
+{% assign cat_base_url =  base_url | append: doc-link %}
+
 <div id="sidebar-wrapper" class="{{ cat_id }}">
   <div class="toggle-container">
     <button type="button" id="main-toggle" class="sidebar-toggle">
@@ -5,7 +16,7 @@
     </button>
   </div>
   <div class="sidebar-brand">
-    <a href="{{ '/' | relative_url }}">
+    <a href="{{ cat_base_url | relative_url }}">
       {% assign img_url = '/img/' | append: cat_id | append: '/arrow-' | append: cat_id | append: '-brand-sidebar.svg' %}
       <img src="{{ img_url | relative_url}}" alt="Arrow {{ cat_id }}">
     </a>
