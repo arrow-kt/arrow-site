@@ -34,11 +34,11 @@ jobs:
         $BASEDIR/arrow/scripts/site-prepare-env.sh
         sudo apt-get install tree
         bundle install --gemfile Gemfile --path vendor/bundle
-    - name: Run Ank
+    - name: "Site: run Ank"
       env:
         JAVA_OPTS: -Xms512m -Xmx1024m
       run: ./gradlew runAnk
-    - name: Build site
+    - name: "Site: build"
       env:
         JAVA_OPTS: -Xms512m -Xmx1024m
         JEKYLL_ENV: production
@@ -46,7 +46,7 @@ jobs:
         bundle exec jekyll build -s build/site -d build/_site
         mkdir $BASEDIR/logs
         tree build/_site > $BASEDIR/logs/docs.log
-    - name: Publish site
+    - name: "Site: publish"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -65,7 +65,7 @@ jobs:
             fi
         done
         #aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID --paths "/*"
-    - name: Generate and validate docs for all the libraries
+    - name: "Next version: generate and validate docs for all the libraries"
       run: |
         for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
             cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
@@ -74,7 +74,7 @@ jobs:
             #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
             cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
         done
-    - name: Build site
+    - name: "Next version: build"
       env:
         JAVA_OPTS: -Xms512m -Xmx1024m
         JEKYLL_ENV: production
@@ -82,7 +82,7 @@ jobs:
         bundle exec jekyll build -b docs/next -s build/site -d build/_site
         rm -f build/_site/index.*
         tree build/_site > $BASEDIR/logs/docs-next.log
-    - name: Publish site
+    - name: "Next version: publish"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -92,7 +92,7 @@ jobs:
         echo ">>> NEXT VERSION" >> aws_sync_jekyll.log
         aws s3 sync build/_site s3://$S3_BUCKET/docs/next --delete >> aws_sync_jekyll.log
         #aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID --paths "/*"
-    - name: Other versions
+    - name: "Other versions: generate, validate, build and publish"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
