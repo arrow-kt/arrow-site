@@ -1,3 +1,4 @@
+
 (function (factoryFn) {
   if (typeof define === 'function' && define.amd)
   	define(['lodash', 'dagre'], factoryFn);
@@ -161,7 +162,7 @@ skanaar.Canvas = function (canvas, callbacks){
 		lineCap: function (cap){ ctx.lineCap = cap },
 		lineJoin: function (join){ ctx.lineJoin = join },
 		lineWidth: function (w){ ctx.lineWidth = w },
-		
+
 		arcTo:       function (){ return ctx.arcTo.apply(      ctx, arguments) },
 		beginPath:   function (){ return ctx.beginPath.apply(  ctx, arguments) },
 		fillText:    function (){ return ctx.fillText.apply(   ctx, arguments) },
@@ -473,7 +474,7 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1: return $$[$0-1] 
+case 1: return $$[$0-1]
 break;
 case 2:this.$ = $$[$0].trim().replace(/\\(\[|\]|\|)/g, '$'+'1');
 break;
@@ -494,7 +495,7 @@ break;
 case 10:
            var t = $$[$0-1].trim().replace(/\\(\[|\]|\|)/g, '$'+'1').match('^(.*?)([<:o+]*-/?-*[:o+>]*)(.*)$');
            this.$ = {assoc:t[2], start:$$[$0-2], end:$$[$0], startLabel:t[1].trim(), endLabel:t[3].trim()};
-  
+
 break;
 case 11:
            var type = 'CLASS';
@@ -506,7 +507,7 @@ case 11:
            }
            $$[$0-1][0][0] = id;
            this.$ = {type:type, id:id, parts:$$[$0-1]};
-  
+
 break;
 }
 },
@@ -1456,7 +1457,7 @@ nomnoml.render = function (graphics, config, compartment, setFont){
 	function findLabelQuadrant(point, rect, def) {
 		if (point.x < rect.x && point.y < rect.y-rect.height/2) return 1;
 		if (point.y > rect.y && point.x > rect.x+rect.width/2) return 1;
-		
+
 		if (point.x > rect.x && point.y < rect.y-rect.height/2) return 2;
 		if (point.y > rect.y && point.x < rect.x-rect.width/2) return 2;
 
@@ -1482,7 +1483,7 @@ nomnoml.render = function (graphics, config, compartment, setFont){
 			if (config.direction === "LR") return flipHorizontally[quadrant-1];
 			if (config.direction === "TD") return flipVertically[quadrant-1];
 		}
-		return quadrant; 	
+		return quadrant;
 	}
 
 	function renderRelation(r, compartment){
