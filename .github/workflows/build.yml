@@ -35,7 +35,7 @@ jobs:
         for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
             cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
             $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
-            echo "include 'arrow-docs'" >> $repository/settings.gradle
+            echo "include 'arrow-docs'" >> $BASEDIR/$repository/settings.gradle
             $BASEDIR/arrow/scripts/project-run-ank.sh $repository
             #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
             cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
@@ -49,13 +49,14 @@ jobs:
                 cd $BASEDIR/arrow-site
                 cp sidebar/$SHORT_VERSION/* docs/_data/
                 ./gradlew clean runAnk
-                cd $BASEDIR
-                git clone -b $version https://github.com/arrow-kt/arrow.git arrow-$version
-                cd arrow-$version
-                sed -i "s/modules {/modules {\\ndocs {\\n_ 'docs'\\n_ 'examples'\\n}/g" settings.gradle
-                find modules/docs/arrow-docs/docs/docs/ -name "*.md" -exec sh -c 'sed -i "s/\/docs//g" $0' {} ';'
-                ./gradlew clean dokka
-                ./gradlew :arrow-docs:runAnk
-                cp -r modules/docs/arrow-docs/build/site/docs/* $BASEDIR/arrow-site/build/site/
-            done            
+                for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
+                    cd $BASEDIR/$repository
+                    git checkout $version
+                    $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
+                    echo "include 'arrow-docs'" >> $BASEDIR/$repository/settings.gradle
+                    $BASEDIR/arrow/scripts/project-run-ank.sh $repository
+                    #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
+                    cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
+                done
+            done
         fi
