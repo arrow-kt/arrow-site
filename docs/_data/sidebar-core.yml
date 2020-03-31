@@ -1,26 +1,4 @@
 options:
-  - title: Quick Start
-
-    nested_options:
-
-      - title: Index
-        url: /core/
-
-      - title: Setup
-        url: /quickstart/setup/
-
-      - title: Linting
-        url: /quickstart/linting/
-
-      - title: Libraries
-        url: /quickstart/libraries/
-
-      - title: Media
-        url: https://media.arrow-kt.io
-
-      - title: Projects & Examples
-        url: /quickstart/projects/
-
   - title: Patterns
 
     nested_options:

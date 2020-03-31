@@ -1,0 +1,19 @@
+options:
+  - title: Quick Start
+
+    nested_options:
+
+      - title: Index
+        url: /quickstart/
+
+      - title: Setup
+        url: /quickstart/setup/
+
+      - title: Linting
+        url: /quickstart/linting/
+
+      - title: Libraries
+        url: /quickstart/libraries/
+
+      - title: Projects & Examples
+        url: /quickstart/projects/
