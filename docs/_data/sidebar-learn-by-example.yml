@@ -19,16 +19,16 @@ options:
         url: /learn-by-example/5/
 
       - title: 6. Introducing concurrency
-          url: /learn-by-example/6/
+        url: /learn-by-example/6/
 
       - title: 7. Traversing container types
-          url: /learn-by-example/7/
+        url: /learn-by-example/7/
 
       - title: 8. Making our program polymorphic
-          url: /learn-by-example/8/
+        url: /learn-by-example/8/
 
       - title: 9. Injecting dependencies
-          url: /learn-by-example/9/
+        url: /learn-by-example/9/
 
       - title: 10. Writing tests for our program
-          url: /learn-by-example/10/
+        url: /learn-by-example/10/
