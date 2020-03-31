@@ -14,6 +14,10 @@
     background: rgba($background-color, 0.97);
   }
 
+  &.quickstart {
+    background: rgba($quickstart-background, 0.95);
+  }
+
   &.core {
     background: rgba($core-background, 0.95);
   }
