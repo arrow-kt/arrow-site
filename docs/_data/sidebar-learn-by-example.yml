@@ -3,35 +3,35 @@ options:
 
     nested_options:
 
-      - title: 1. Writing a pure program
-        url: /learn-by-example/1/
+      - title: 1. Writing the initial program
+        url: /learn-by-example/1-writing-the-initial-program/
 
       - title: 2. Modeling data and errors
-        url: /learn-by-example/2/
+        url: /learn-by-example/2-modeling-data-and-errors/
 
       - title: 3. Adding safe background computation
-        url: /learn-by-example/3/
+        url: /learn-by-example/3-adding-safe-background-computation/
 
       - title: 4. Running idependent computations
-        url: /learn-by-example/4/
+        url: /learn-by-example/4-running-independent-computations/
 
       - title: 5. Running sequential computations
-        url: /learn-by-example/5/
+        url: /learn-by-example/5-running-sequential-computations/
 
       - title: 6. Introducing concurrency
-        url: /learn-by-example/6/
+        url: /learn-by-example/6-introducing-concurrency/
 
       - title: 7. Traversing container types
-        url: /learn-by-example/7/
+        url: /learn-by-example/7-traversing-container-types/
 
       - title: 8. Making our program polymorphic
-        url: /learn-by-example/8/
+        url: /learn-by-example/8-making-our-program-polymorphic/
 
       - title: 9. Injecting dependencies
-        url: /learn-by-example/9/
+        url: /learn-by-example/9-injecting-dependencies/
 
       - title: 10. Writing tests for our program
-        url: /learn-by-example/10/
+        url: /learn-by-example/10-writing-tests-for-our-program/
 
   - title: Integration with third parties
 
