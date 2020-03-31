@@ -1,0 +1,52 @@
+// DOC CONTENT CORE
+// -----------------------------------------------
+// -----------------------------------------------
+
+.doc-content-learn-by-example {
+    .doc-content {
+        a {
+            color: $learn-by-example-color;
+        }
+
+        p,
+        ul {
+            code {
+                background: rgba($learn-by-example-background, 0.08);
+            }
+            
+            a {
+                code {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .cm-s-arrow span.cm-keyword {
+            color: $learn-by-example-color;
+        }
+
+
+        .hljs-variable,
+        .hljs-template-variable,
+        .hljs-tag,
+        .hljs-name,
+        .hljs-selector-id,
+        .hljs-selector-class,
+        .hljs-regexp,
+        .hljs-deletion {
+            color: $learn-by-example-color;
+        }
+
+        .button-video {
+            background: $white;
+            border: 2px solid $learn-by-example-color;
+            transition: background $base-duration;
+
+            &:hover {
+                background: $learn-by-example-color;
+                color: $white;
+            }
+        }
+    }
+
+}
