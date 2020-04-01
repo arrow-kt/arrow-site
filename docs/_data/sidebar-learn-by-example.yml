@@ -32,3 +32,19 @@ options:
 
       - title: 10. Writing tests for our program
         url: /learn-by-example/10/
+
+  - title: Integration with third parties
+
+    nested_options:
+
+      - title: KotlinX Coroutines
+        url: /learn-by-example/integrations/kotlinx-coroutines/
+
+      - title: RxJava
+        url: /learn-by-example/integrations/rxjava
+
+      - title: Reaktor
+        url: /learn-by-example/integrations/reaktor
+
+      - title: Retrofit
+        url: /learn-by-example/integrations/retrofit

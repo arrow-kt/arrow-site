@@ -4,31 +4,23 @@ title: Quick Start
 permalink: /learn-by-example/
 ---
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.arrow-kt/arrow-core?color=%234caf50)](https://maven-badges.herokuapp.com/maven-central/io.arrow-kt/arrow-core)
-[![Latest snapshot](https://img.shields.io/maven-metadata/v?color=blue&label=latest%20snapshot&metadataUrl=https%3A%2F%2Foss.jfrog.org%2Fartifactory%2Foss-snapshot-local%2Fio%2Farrow-kt%2Farrow-core%2Fmaven-metadata.xml)](https://oss.jfrog.org/artifactory/oss-snapshot-local/io/arrow-kt/arrow-core/)
-[![Kotlin version badge](https://img.shields.io/badge/kotlin-1.3-blue.svg)](https://kotlinlang.org/docs/reference/whatsnew13.html)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![StackOverflow](https://img.shields.io/badge/arrow--kt-black.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/arrow-kt)
+# Learn by example
 
-Λrrow is a library for Typed Functional Programming in Kotlin.
+Λrrow is a library for Typed Functional Programming in Kotlin. It provides all the required constructs so we can write any pure functional programs with it.
 
-Arrow aims to provide a [*lingua franca*](https://en.wikipedia.org/wiki/Lingua_franca) of interfaces and abstractions across Kotlin libraries.
-For this, it includes the most popular data types, type classes and abstractions such as `Option`, `Either`, `IO`, `Functor`, `Applicative`, `Monad` to empower users to write pure FP apps and libraries built atop higher order abstractions.
+This site offers detailed articles about **how to apply Arrow to our daily work**. If you are a newcomer, this is the best place to start! You are very welcome 🤗. And for devs that are already using Arrow: you can use this page as your daily cheat sheet 👍
 
-Use the list below to learn more about Λrrow's main features.
+## A complete program by example
 
-- [Patterns]({{ '/patterns/glossary/' | relative_url }}): tutorials and approaches to day-to-day challenges using FP
-- [Libraries]({{ '/learn-by-example/libraries/' | relative_url }}): all the libraries provided by Λrrow
-- [Type classes]({{ '/typeclasses/intro/' | relative_url }}): defining behaviors for data
-- [Data types]({{ '/datatypes/intro/' | relative_url }}): common abstractions
-- [Effects]({{ '/effects/io/' | relative_url }}): interfacing with external systems
-- [Optics]({{ '/optics/iso/' | relative_url }}): inspecting and modifying data structures
+For a list of sequential posts on how to code a complete program from scratch using Arrow, you can have a look to our section with [A complete program by example]().
 
-## Curated external links
+In this section we will build a program from the ground covering a set of very common concepts like **asynchrony**, **concurrency**, **controlling effects**, **parallel and sequential computation**, **thread switching**, **domain data and error modeling**, **resource safety**, **dependency injection**, **testing** and much more.
 
-- [Projects and Examples]({{ '/learn-by-example/projects/' | relative_url }})
-- [Media](https://media.arrow-kt.io)
+## Integration with third parties
 
-## Setup
+We often struggle to figure out how to apply Arrow over our day to day frameworks. For examples on this you can visit our integration with third parties section, where you will find detail driven posts over the example for some very common libraries:
 
-Take a look at [Setup]({{ '/learn-by-example/setup/' | relative_url }}) where you'll find the instructions to configure a project with `Gradle` or `Maven` to use `Arrow` library.
+* [KotlinX Coroutines]()
+* [RxJava]()
+* [Reaktor]()
+* [Retrofit]()
