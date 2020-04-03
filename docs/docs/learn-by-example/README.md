@@ -1,6 +1,6 @@
 ---
 layout: docs-learn-by-example
-title: Quick Start
+title: Learn by example
 permalink: /learn-by-example/
 ---
 
