@@ -46,7 +46,7 @@ This implementation for the `UserDatabase` contains a mutable state that's mutat
 
 Finally, it provides a function to generate a `UserId` given a `name`.
 
-So we could have a program to rely on this database to create and find users:
+So we could have a program to rely on this database to create and find users. Feel free to click on the ▶️ icon to run it and check the result.
 
 ```kotlin
 fun main() {
@@ -56,3 +56,9 @@ fun main() {
   println(user)
 }
 ``` 
+
+But this program has an issue. It's a database, so by definition it represents **a mutable state**. Even if our implementation is in-memory, we are not reflecting this mutability with the public function types in the contract.
+
+Every time we create a new user, the database internal state will change. And the `createUser` function could be **called from multiple places** in our program. This encoding would make it quite hard for us the developers to track down what the state of our program is from any of those places at a given point in time. In other words, this implementation make all logics that rely on this database much harder to reason about.
+
+Overall, we are introducing ambigüity in our program and that blocks our ability to apply *local reasoning* over those logics. We need to know the program as a whole and how this state is mutated across all its different layers to be able to know the state in the current time snap.  
