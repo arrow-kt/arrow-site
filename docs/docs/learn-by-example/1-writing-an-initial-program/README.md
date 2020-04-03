@@ -47,7 +47,7 @@ object InMemoryUserDatabase : UserDatabase {
 }
 ```
 
-This implementation for the `UserDatabase` contains a mutable state that is mutated by the `createUser` function. It also provides functions to `createUser` and `findUser` in the database. The `createUser` function relies on a private utility function to generate a unique `UserId` from a given `name`.
+This implementation for the `UserDatabase` contains a mutable state that is mutated by the `createUser` function. It provides functions to `createUser` and `findUser` in the database. The `createUser` function relies on a private utility function to generate a unique `UserId` from a given `name`.
 
 So we could have a program to rely on this database to create and find users. Feel free to click on the ▶️ icon to run it and check the result.
 
@@ -87,14 +87,21 @@ fun main() {
 //sampleEnd
 ``` 
 
-As you can see, we could register and find a user in the database.
+As you can see, we could register and find a user in the database. But this program has a few issues.
 
-But this program has an issue. It's a database, so by definition it represents **a mutable state**. Even if our implementation is in-memory, we are not reflecting this mutability with the public function types in the contract.
+We are not handling any potential errors, because we assumed it's an in memory implementation that will not fail. But what If it was a real database? **It could potentially throw, making our function calls non deterministic**. Also, what happens when the user we are trying to find is not there? If our backend was a Resful API, we would probably want to handle it by returning a 404 not found response to the client. 
 
-Every time we create a user, the database internal state will change. If we keep in mind that the `createUser` function could be **called from multiple places** in our program, this encoding would make it hard for us the developers to track down what the state of our program is from any of those places at a given point in time.
+Ultimately we need to account for errors in our domain and handle them properly to make our program resilient, the same way a rock band would need to keep playing if something unexpected happened.
 
-Overall, we are introducing ambiguity in our program provoked by a **"side effect"**, which makes the program non deterministic. And that blocks our ability to apply *local reasoning* over pieces of logic relying on it. And if we can't reason about atomic pieces of logic, we will not be able to reason over bigger logics relying on those, and ultimately over our program as a whole.
+<img src="/img/learn-by-example/band_error_keep_playing.gif" alt="Rock band playing" width="800"/>
 
-On top of that, we have a second side effect imposed by the `generateId()` function. That function returns a different value every time we call it, so it is impure by definition.
+On top of that, it's a database, so by definition it represents **a mutable state**. Even if our implementation is in-memory, we are not reflecting this mutability with the public function types in the contract.
 
-Finally, we are not handling any potential errors, because we assumed it's an in memory implementation that will not fail. But what If it was a real database? **It could potentially throw, making our function calls non deterministic**. 
+Every time we create a user, the database internal state will change. If we keep in mind that the `createUser` function could be **called from multiple places** in our program, this encoding would make it hard for us the developers to track down what the state of our program is at any point in time.
+
+Overall, we are introducing ambiguity in our program provoked by a **"side effect"**, which makes the program non deterministic. That blocks our ability to apply *local reasoning* over pieces of logic relying on it. And if we can't reason about those atomic pieces, we will not be able to reason over bigger logics relying on them, and ultimately over our program as a whole.
+
+Finally, we have a second side effect imposed by the `generateId()` function. That function returns a different value every time we call it, so it is impure by definition.
+
+We will address all the described issues in the lessons to come, starting by handling errors. Have a look to the next post in the series: [Modeling data and errors](/learn-by-example/2-modeling-data-and-errors/).
+ 
