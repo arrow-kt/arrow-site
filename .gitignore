@@ -114,8 +114,6 @@ fabric.properties
 # Jekyll
 _site
 .sass-cache
-vendor
-.bundle
 
 vendor
 .bundle
