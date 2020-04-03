@@ -115,6 +115,9 @@ fabric.properties
 _site
 .sass-cache
 
+vendor
+.bundle
+
 #Ruby
 Gemfile.lock
 
