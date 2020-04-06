@@ -887,3 +887,5 @@ They define **generic** behaviors (syntax) for our program (Concurrency, asynchr
 Back to our snippet, `Applicative<F>` provides syntax to run **independent computations**. Here we are creating an instance of it for `Validated`, and we are using this machinery to run our independent validations by `Applicative#tupledN()`. We use it in combination with the [`Semigroup<A>`](https://arrow-kt.io/docs/arrow/typeclasses/semigroup/), another Typeclass. This one represents a **strategy to combine errors** that we are supplying. In this case it's the `Semigroup` for `NonEmptyList<A>`, which means it will combine the elements into a `NonEmptyList`.
 
 Run the snippet to check how a `NonEmptyList<UsernameError>` containing the required accumulated errors is returned.
+
+In following posts in the series we will showcase further error handling strategies linked to more advanced patterns like *Monad comprehensions* and concurrent operations among others. But let's move first into [Modelling data](/learn-by-example/3-modelling-data/), the next post in the series that shows **how to use the Kotlin type system and the functional types to model data in our programs**.
