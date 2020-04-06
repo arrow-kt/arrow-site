@@ -226,14 +226,14 @@ object InMemoryBandService : BandService {
 fun main() {
   //sampleStart
   val userId = InMemoryUserDatabase.createUser("SomeUserName")
-    println("UserId: $userId")
-    println(
-      InMemoryUserDatabase.findUser(userId)
-        .flatMap { InMemoryBandService.getBandsFollowedByUser(it.id) }
-        .fold(
-          ifEmpty = { "User $userId not found!" },
-          ifSome = { bands -> bands.toString() }
-        ))
+  println("UserId: $userId")
+  println(
+    InMemoryUserDatabase.findUser(userId)
+      .flatMap { InMemoryBandService.getBandsFollowedByUser(it.id) }
+      .fold(
+        ifEmpty = { "User $userId not found!" },
+        ifSome = { bands -> bands.toString() }
+      ))
   //sampleEnd
 }
 ```
@@ -242,5 +242,87 @@ If we run the program we will find that it finds the user ➡️ fetches the fol
 
 That works because `Option` is biased towards the `Some` case, which is the happy path. That means computations like `flatMap` or `map` will just work **when the value is present**. But what happens for errors?
 
-For the error case, `Option` has **fail fast strategy**. This means in case it failed early and one of the computations returned `None`, the complete call chain will short-circuit the error and return `None`. Let's enforce an error in our initial call to see the result.
+### Failing fast
+
+For the error case, `Option` has **fail fast strategy**. This means in case it failed early and one of the computations returned `None`, the complete call chain would short-circuit the error and return `None`. Let's enforce an error in our initial call to see the result. We only need to remove the call to create the user, so the program can't find it:
+
+```kotlin:ank:playground
+import java.util.*
+import arrow.core.*
+
+class UserId(val id: String)
+data class User(val id: UserId, val name: String)
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+interface UserDatabase {
+  fun createUser(name: String): UserId
+  fun findUser(userId: UserId): Option<User>
+}
+
+object InMemoryUserDatabase : UserDatabase {
+  private var users: List<User> = emptyList()
+
+  override fun createUser(name: String): UserId {
+    val userId = generateId(name)
+    this.users = users + listOf(User(userId, name))
+    return userId
+  }
+
+  override fun findUser(userId: UserId): Option<User> =
+    users.find { it.id == userId }.toOption()
+
+  private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Option<List<Band>>
+}
+
+object InMemoryBandService : BandService {
+  override fun getBandsFollowedByUser(userId: UserId): Option<List<Band>> =
+    listOf(
+      Band("Band 1", BandStyle.POP, listOf(
+        BandMember("1", "Member 1", "Drums"),
+        BandMember("2", "Member 2", "Microphone"),
+        BandMember("3", "Member 3", "Guitar")
+      )),
+      Band("Band 2", BandStyle.POP, listOf(
+        BandMember("4", "Member 4", "Drums"),
+        BandMember("5", "Member 5", "Microphone"),
+        BandMember("6", "Member 6", "Guitar"),
+        BandMember("7", "Member 7", "Keyboard")
+      ))
+    ).some()
+}
+
+fun main() {
+  //sampleStart
+  // val userId = InMemoryUserDatabase.createUser("SomeUserName")
+  // println(userId)
+  println(
+    InMemoryUserDatabase.findUser(UserId("SomeId"))
+      .flatMap { InMemoryBandService.getBandsFollowedByUser(it.id) }
+      .fold(
+        ifEmpty = { "User not found!" },
+        ifSome = { bands -> bands.toString() }
+      ))
+  //sampleEnd
+}
+```
+
+Let's run it to find that the complete expression result is short-circuited to `None`, so we log our error message prepared for that case.
 
