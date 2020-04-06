@@ -353,8 +353,8 @@ This is a potential way we'd think of for modelling our scenario in a jvm progra
 
 * **Exceptions are heavy and slow**. [Here](http://normanmaurer.me/blog/2013/11/09/The-hidden-performance-costs-of-instantiating-Throwables/) you have more literature about this. Also [from this slide forward](https://speakerdeck.com/raulraja/functional-error-handling?slide=6). Instantiating a `Throwable` computes the stack-trace and that is such heavy that is usually considered a side effect. 
 * **Exceptions can jump many layers in the call stack**, so you cannot think locally about your functions, but need to keep the complete program flow in mind, all the time. That's a big overhead to have. Note that one of the big benefits of Functional Programming is the ability to apply local reasoning over highly composable pieces which are the functions.
+* **Exceptions don't jump async boundaries or threads**. They can blow up a thread or a unit of logic, but caller code does not notice unless you do manual mapping to an error result, notify using a continuation (callback) or similar.
 * **Exceptions encode an alternative error path**, so you have two completely different paths to follow for your flow control: success result and exceptions. Exceptions were created to model exceptional scenarios, not for control flow. Most of our errors should be handled by the program, hence they are part of our expected domain.
-
 
 As stated above, we would rather aim to model our program errors as part of our domain data. Errors are also data.
 
@@ -641,4 +641,249 @@ Since we have removed the line to create the user, the `findUser` computation wi
 
 ### Error accumulation
 
-Sometimes we don't want to fail fast but accumulate our errors instead, so we can process all of them together.
+Sometimes we don't want to fail fast but accumulate errors instead, so we can process all of them together. Arrow provides [`Validated<E, A>`](https://arrow-kt.io/docs/apidocs/arrow-core-data/arrow.core/-validated/) for this that you can use in combination with [`NonEmptyList<A>`](https://arrow-kt.io/docs/arrow/core/nonemptylist/) as the mean to combine errors. Let's see how to do it over an example.
+
+Let's say we had a service to validate our username for registering to the social network.
+
+```kotlin:ank
+import java.util.*
+import arrow.core.*
+
+class UserId(val id: String)
+data class User(val id: UserId, val name: String)
+
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DomainError, UserId>
+  fun findUser(userId: UserId): Either<DomainError, User>
+}
+
+object InMemoryUserDatabase : UserDatabase {
+  private var users: List<User> = emptyList()
+
+  override fun createUser(name: String): Either<DomainError, UserId> {
+    val userId = generateId(name)
+    this.users = users + listOf(User(userId, name))
+    return userId.right()
+  }
+
+  override fun findUser(userId: UserId): Either<DomainError, User> =
+    users.find { it.id == userId }.toOption().toEither { DomainError.NotFoundError }
+
+  private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>>
+}
+
+object InMemoryBandService : BandService {
+
+  override fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>> =
+    listOf(
+      Band("Band 1", BandStyle.POP, listOf(
+        BandMember("1", "Member 1", "Drums"),
+        BandMember("2", "Member 2", "Microphone"),
+        BandMember("3", "Member 3", "Guitar")
+      )),
+      Band("Band 2", BandStyle.POP, listOf(
+        BandMember("4", "Member 4", "Drums"),
+        BandMember("5", "Member 5", "Microphone"),
+        BandMember("6", "Member 6", "Guitar"),
+        BandMember("7", "Member 7", "Keyboard")
+      ))
+    ).right()
+}
+
+//sampleStart
+sealed class UsernameError {
+  object Empty : UsernameError()
+  object NonAlphaNumeric : UsernameError()
+  object ShortLength : UsernameError()
+}
+
+object ValidationService {
+  private fun isAlphaNumeric(value: String) = "^[a-zA-Z0-9_]*$".toRegex().matches(value)
+
+  fun validateNotEmpty(name: String): ValidatedNel<UsernameError, String> =
+    if (name.isEmpty()) {
+      UsernameError.Empty.invalidNel()
+    } else {
+      name.validNel()
+    }
+
+  fun validateLength(name: String): ValidatedNel<UsernameError, String> =
+    if (name.length <= 3) {
+      UsernameError.ShortLength.invalidNel()
+    } else {
+      name.validNel()
+    }
+
+  fun validateAlphaNumeric(name: String): ValidatedNel<UsernameError, String> =
+    if (!isAlphaNumeric(name)) {
+      UsernameError.NonAlphaNumeric.invalidNel()
+    } else {
+      name.validNel()
+    }
+}
+//sampleEnd
+```
+
+This service is able to validate that our inserted username is valid by checking that it is not empty, it is not too short, and it is alphanumeric.
+
+We could use this syntax to accumulate errors:
+
+```kotlin:ank:playground
+import java.util.*
+import arrow.core.*
+import arrow.core.extensions.nonemptylist.semigroup.semigroup
+import arrow.core.extensions.validated.applicative.applicative
+
+class UserId(val id: String)
+data class User(val id: UserId, val name: String)
+
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DomainError, UserId>
+  fun findUser(userId: UserId): Either<DomainError, User>
+}
+
+object InMemoryUserDatabase : UserDatabase {
+  private var users: List<User> = emptyList()
+
+  override fun createUser(name: String): Either<DomainError, UserId> {
+    val userId = generateId(name)
+    this.users = users + listOf(User(userId, name))
+    return userId.right()
+  }
+
+  override fun findUser(userId: UserId): Either<DomainError, User> =
+    users.find { it.id == userId }.toOption().toEither { DomainError.NotFoundError }
+
+  private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>>
+}
+
+object InMemoryBandService : BandService {
+
+  override fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>> =
+    listOf(
+      Band("Band 1", BandStyle.POP, listOf(
+        BandMember("1", "Member 1", "Drums"),
+        BandMember("2", "Member 2", "Microphone"),
+        BandMember("3", "Member 3", "Guitar")
+      )),
+      Band("Band 2", BandStyle.POP, listOf(
+        BandMember("4", "Member 4", "Drums"),
+        BandMember("5", "Member 5", "Microphone"),
+        BandMember("6", "Member 6", "Guitar"),
+        BandMember("7", "Member 7", "Keyboard")
+      ))
+    ).right()
+}
+
+sealed class UsernameError {
+  object Empty : UsernameError()
+  object NonAlphaNumeric : UsernameError()
+  object ShortLength : UsernameError()
+}
+
+object ValidationService {
+  private fun isAlphaNumeric(value: String) = "^[a-zA-Z0-9_]*$".toRegex().matches(value)
+
+  fun validateNotEmpty(name: String): ValidatedNel<UsernameError, String> =
+    if (name.isEmpty()) {
+      UsernameError.Empty.invalidNel()
+    } else {
+      name.validNel()
+    }
+
+  fun validateLength(name: String): ValidatedNel<UsernameError, String> =
+    if (name.length <= 3) {
+      UsernameError.ShortLength.invalidNel()
+    } else {
+      name.validNel()
+    }
+
+  fun validateAlphaNumeric(name: String): ValidatedNel<UsernameError, String> =
+    if (!isAlphaNumeric(name)) {
+      UsernameError.NonAlphaNumeric.invalidNel()
+    } else {
+      name.validNel()
+    }
+}
+
+fun main() {
+  //sampleStart
+  val service = ValidationService
+  val username = "N}l"
+  val res1 = service.validateNotEmpty(username)
+  val res2 = service.validateLength(username)
+  val res3 = service.validateAlphaNumeric(username)
+
+  val res = Validated.applicative(NonEmptyList.semigroup<UsernameError>()).tupledN(res1, res2, res3)
+  //sampleEnd
+  println(res)
+}
+```
+
+You probably got a bit lost on [`Applicative<F>`](https://arrow-kt.io/docs/arrow/typeclasses/applicative/) here. It is a *Typeclass*. [Here](https://arrow-kt.io/docs/typeclasses/intro/) you have a brief intro to understand what *Typeclasses* are. For having a rapid mental mapping, we could say that:
+
+#### Data types
+
+Context for our data. `Option<A>`, `Either<L, R>`, `Validated<E, A>`... etc. They raise a concern over our data to a type level. "Is it there or not?", "Is it an error?", "Is it valid?".
+
+#### Type classes
+
+They define **generic** behaviors (syntax) for our program (Concurrency, asynchrony, deferring execution, dependent operations, independent operations... etc). They define what your program is able to do with the data.
+
+Back to our snippet, `Applicative<F>` provides syntax to run **independent computations**. Here we are creating an instance of it for `Validated`, and we are using this machinery to run our independent validations by `Applicative#tupledN()`. We use it in combination with the [`Semigroup<A>`](https://arrow-kt.io/docs/arrow/typeclasses/semigroup/), another Typeclass. This one represents a **strategy to combine errors** that we are supplying. In this case it's the `Semigroup` for `NonEmptyList<A>`, which means it will combine the elements into a `NonEmptyList`.
+
+Run the snippet to check how a `NonEmptyList<UsernameError>` containing the required accumulated errors is returned.
