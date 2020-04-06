@@ -357,4 +357,4 @@ This is a potential way we'd think of for modelling our scenario in a jvm progra
 
 As stated above, we would rather aim to model our program errors as part of our domain data. Errors are also data.
 
-Arrow provides the [Either](https://arrow-kt.io/docs/apidocs/arrow-core-data/arrow.core/-either/) data type to model a duality in our control flow. It can be used to model any scenarios where you have a happy path to follow and an alternative via that is frequently used to represent failure.
+Arrow provides the [`Either<L, R>`](https://arrow-kt.io/docs/apidocs/arrow-core-data/arrow.core/-either/) data type to model a duality in our control flow. It can be used to model any scenarios where you have a happy path to follow and an alternative via that is frequently used to represent failure.
