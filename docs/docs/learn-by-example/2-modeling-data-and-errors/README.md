@@ -78,7 +78,7 @@ fun main() {
 
 With this, we would be treating both cases: present (value) vs absent (null). 
 
-If we wanted to lift that concern into a type to enable other behaviors over it like `fold`, `map`, `flatMap` and so on, we could move that to be an [`Option<A>`](https://arrow-kt.io/docs/0.10/apidocs/arrow-core-data/arrow.core/-option/) instead:
+If we wanted to lift that concern into a type to enable other behaviors over it like `fold`, `map`, `flatMap` and so on, we could move that to be an [`Option<A>`](https://arrow-kt.io/docs/apidocs/arrow-core-data/arrow.core/-option/) instead:
 
 ```kotlin:ank:playground
 import java.util.*
@@ -326,3 +326,35 @@ fun main() {
 
 Let's run it to find that the complete expression result is short-circuited to `None`, so we log our error message prepared for that case.
 
+### Modelling errors
+
+Our program already handles the absence of a user in the database, which is a very specific error. But there are more errors we are not handling yet. Let's say we had real database and service implementations. Our database connection could fail on each access, and our network could timeout. Both of them could also throw other types of `IOException`. Let's represent those scenarios in our program contracts.
+
+```kotlin
+object DatabaseConnectionError : RuntimeException()
+object TimeoutError : RuntimeException()
+
+interface UserDatabase {
+  @Throws(IOException::class, DatabaseConnectionError::class)
+  fun createUser(name: String): UserId
+
+  @Throws(IOException::class, DatabaseConnectionError::class)
+  fun findUser(userId: UserId): Option<User>
+}
+
+interface BandService {
+  @Throws(IOException::class, TimeoutError::class)
+  fun getBandsFollowedByUser(userId: UserId): Option<List<Band>>
+}
+```
+
+This is a potential way we'd think of for modelling our scenario in a jvm program. But using exceptions has some important cons:
+
+* **Exceptions are heavy and slow**. Here you have more literature about this.
+* **Exceptions can jump many layers in the call stack**, so you cannot think locally about your functions, but need to keep the complete program flow in mind, all the time. That's a big overhead to have. Note that one of the big benefits of Functional Programming is the ability to apply local reasoning over highly composable pieces which are the functions.
+* **Exceptions encode an alternative error path**, so you have two completely different paths to follow for your flow control: success result and exceptions. Exceptions were created to model exceptional scenarios, not for control flow. Most of our errors should be handled by the program, hence they are part of our expected domain.
+
+
+As stated above, we would rather aim to model our program errors as part of our domain data. Errors are also data.
+
+Arrow provides the [Either](https://arrow-kt.io/docs/apidocs/arrow-core-data/arrow.core/-either/) data type to model a duality in our control flow. It can be used to model any scenarios where you have a happy path to follow and an alternative via that is frequently used to represent failure.
