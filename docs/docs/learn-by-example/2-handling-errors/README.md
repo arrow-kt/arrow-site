@@ -639,3 +639,6 @@ fun main() {
 
 Since we have removed the line to create the user, the `findUser` computation will fail and return `Left(NotFoundError)`, and therefore short-circuit the program. Feel free to run it to check by yourself.
 
+### Error accumulation
+
+Sometimes we don't want to fail fast but accumulate our errors instead, so we can process all of them together.
