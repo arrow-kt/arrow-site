@@ -77,14 +77,14 @@ object InMemoryUserDatabase : UserDatabase {
   private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
 }
 
-//sampleStart
 fun main() {
+  //sampleStart
   val userId = InMemoryUserDatabase.createUser("SomeUserName")
-  println(userId)
+  println("UserId: $userId")
   val user = InMemoryUserDatabase.findUser(userId)
   println(user)
+  //sampleEnd
 }
-//sampleEnd
 ``` 
 
 As you can see, we could register and find a user in the database. But this program has a few issues.
