@@ -1,14 +1,14 @@
 ---
 layout: docs-learn-by-example
-title: Modeling data and errors
-permalink: /learn-by-example/2-modeling-data-and-errors/
+title: Handling errors
+permalink: /learn-by-example/2-handling-errors/
 ---
 
 # A complete program by example
 
-In [the previous post in the series](/learn-by-example/1-writing-the-initial-program/) we wrote an initial program to create and find users for a Rock Band social network backend. We found out that our approach had some inherent issues since we were not handling errors or keeping side effects under control. We will focus on error modeling and handling first, along with data modeling. We will dive into how to control side effects in further lessons.
+In [the previous post in the series](/learn-by-example/1-writing-the-initial-program/) we wrote an initial program to create and find users for a Rock Band social network backend. We found out that our approach had some inherent issues since we were not handling errors or keeping side effects under control. We will focus on error handling first. We will dive into modelling data and how to control side effects in further posts.
 
-## 2. Modeling data and errors
+## 2. Handling errors
 
 One of the most obvious unhandled errors in our program was the fact that a user could not be found in the database. Let's say we wanted to react differently when the user is not there, and log an error in that case. Probably the most obvious approach would be to use [Kotlin nullable types](https://kotlinlang.org/docs/reference/null-safety.html).
 

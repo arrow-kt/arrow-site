@@ -103,5 +103,5 @@ Overall, we are introducing ambiguity in our program provoked by a **"side effec
 
 Finally, we have a second side effect imposed by the `generateId()` function. That function returns a different value every time we call it, so it is impure by definition.
 
-We will address all the described issues in the lessons to come, starting by handling errors. Have a look to the next post in the series: [Modeling data and errors](/learn-by-example/2-modeling-data-and-errors/).
+We will address all the described issues in the sections to come, starting by handling errors. Have a look to the next post in the series: [Handling errors](/learn-by-example/2-handling-errors/).
  
