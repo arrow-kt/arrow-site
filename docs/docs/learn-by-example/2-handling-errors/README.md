@@ -6,7 +6,7 @@ permalink: /learn-by-example/2-handling-errors/
 
 # A complete program by example
 
-In [the previous post in the series](/learn-by-example/1-writing-the-initial-program/) we wrote an initial program to create and find users for a Rock Band social network backend. We found out that our approach had some inherent issues since we were not handling errors or keeping side effects under control. We will focus on error handling first. We will dive into modelling data and how to control side effects in further posts.
+In [the previous post in the series](/learn-by-example/1-writing-the-initial-program/) we wrote an initial program to create and find users for a Rock Band social network backend. We found out that our approach had some inherent issues since we were not handling errors or keeping side effects under control. We will focus on error handling first. We will dive into modelling data and how to control side effects in future posts.
 
 ## 2. Handling errors
 
@@ -127,11 +127,11 @@ The fact that our return type is `Option<User>` now enforces us to handle both c
 
 ### The bias
 
-Arrow data types are encoded with **a bias towards the happy case**. That means they are prepared to compose computations that work over the happy path, so we can build our program logic seamlessly assuming things will go alright, and then provide an error handling strategy as a single pluggable piece for the whole thing. This removes a lot of thinking overhead from our minds and makes programs highly composable.
+Arrow data types are encoded with **a bias towards the happy case**. That means they are prepared to compose computations that work over the happy path, so we can build our program logic seamlessly assuming things will go alright, and then provide an error handling strategy as a single pluggable piece at some point. This removes a lot of thinking overhead from our minds and makes programs highly composable.
 
-In the case of `Option<A>`, it is biased towards the `Some` case, which represents its happy case. Thanks to this, we could also stack more computations on top of it using `flatMap` or `map` before folding to apply our side effects. Let's see an example of this. 
+In the case of `Option<A>`, it is biased towards the `Some` case, which represents the happy case. Thanks to this, we could also stack more computations on top of it using `flatMap` or `map` before folding to apply our side effects. Let's see an example of this. 
 
-Let's say we also had a `BandService` to retrieve the list of bands followed by a given user. We could make our contract also return an `Option` since the provided `userId` could not be found, and provide a stubbed in-memory implementation like the following one.
+Let's say we had a `BandService` to retrieve the list of bands that a given user follows in the social network. We could make the contract for it also return an `Option` since the provided `userId` could not be found, and provide a stubbed in-memory implementation like the following one.
 
 ```kotlin
 interface BandService {
@@ -324,7 +324,7 @@ fun main() {
 }
 ```
 
-Let's run it to find that the complete expression result is short-circuited to `None`, so we log our error message prepared for that case.
+If we run it we will find that the complete expression result is short-circuited to `None`, so we log our error message prepared for that case.
 
 ### Modelling errors
 
@@ -352,9 +352,9 @@ interface BandService {
 This is a potential way we'd think of for modelling our scenario in a jvm program. But using exceptions has some important cons:
 
 * **Exceptions are heavy and slow**. [Here](http://normanmaurer.me/blog/2013/11/09/The-hidden-performance-costs-of-instantiating-Throwables/) you have more literature about this. Also [from this slide forward](https://speakerdeck.com/raulraja/functional-error-handling?slide=6). Instantiating a `Throwable` computes the stack-trace and that is such heavy that is usually considered a side effect. 
-* **Exceptions can jump many layers in the call stack**, so you cannot think locally about your functions, but need to keep the complete program flow in mind, all the time. That's a big overhead to have. Note that one of the big benefits of Functional Programming is the ability to apply local reasoning over highly composable pieces which are the functions.
+* **Exceptions can jump many layers in the call stack**, so you cannot think locally about your functions, but need to keep the complete program flow in mind, all the time. That's a big overhead to have. Note that one of the big benefits of Functional Programming is the ability to apply local reasoning over highly composable pieces which are the functions. Exceptions break that.
 * **Exceptions don't jump async boundaries or threads**. They can blow up a thread or a unit of logic, but caller code does not notice unless you do manual mapping to an error result, notify using a continuation (callback) or similar.
-* **Exceptions encode an alternative error path**, so you have two completely different paths to follow for your flow control: success result and exceptions. Exceptions were created to model exceptional scenarios, not for control flow. Most of our errors should be handled by the program, hence they are part of our expected domain.
+* **Exceptions encode an alternative error path**, so you have two completely different paths to follow for your flow control: success result and exceptions. Exceptions were created to model exceptional scenarios, not for control flow. Most of our errors should be handled by the program, since they are part of our expected domain.
 
 As stated above, we would rather aim to model our program errors as part of our domain data. Errors are also data.
 
@@ -549,6 +549,8 @@ fun main() {
 ```
 
 `Either<L, R>` is also **biased towards the happy case**, which in this case would be its `Right` implementation. That is why we can keep stacking computations the same way we did with `Option<A>`, and they will keep working meanwhile all computations return `Right`.
+
+We will see an example of how to use the power of *Monad Comprehensions* to improve this syntax a lot in the [6. Running sequential computations](/learn-by-example/6-running-sequential-computations/) section.
 
 If a single computation in the chain returned `Left` (an error) then the complete call stack would get short-circuited to return that error. Once again, let's see an example of this:
 
