@@ -547,3 +547,95 @@ fun main() {
   //sampleEnd
 }
 ```
+
+`Either<L, R>` is also **biased towards the happy case**, which in this case would be its `Right` implementation. That is why we can keep stacking computations the same way we did with `Option<A>`, and they will keep working meanwhile all computations return `Right`.
+
+If a single computation in the chain returned `Left` (an error) then the complete call stack would get short-circuited to return that error. Once again, let's see an example of this:
+
+```kotlin:ank:playground
+import java.util.*
+import arrow.core.*
+
+class UserId(val id: String)
+data class User(val id: UserId, val name: String)
+
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DomainError, UserId>
+  fun findUser(userId: UserId): Either<DomainError, User>
+}
+
+object InMemoryUserDatabase : UserDatabase {
+  private var users: List<User> = emptyList()
+
+  override fun createUser(name: String): Either<DomainError, UserId> {
+    val userId = generateId(name)
+    this.users = users + listOf(User(userId, name))
+    return userId.right()
+  }
+
+  override fun findUser(userId: UserId): Either<DomainError, User> =
+    users.find { it.id == userId }.toOption().toEither { DomainError.NotFoundError }
+
+  private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>>
+}
+
+object InMemoryBandService : BandService {
+
+  override fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>> =
+    listOf(
+      Band("Band 1", BandStyle.POP, listOf(
+        BandMember("1", "Member 1", "Drums"),
+        BandMember("2", "Member 2", "Microphone"),
+        BandMember("3", "Member 3", "Guitar")
+      )),
+      Band("Band 2", BandStyle.POP, listOf(
+        BandMember("4", "Member 4", "Drums"),
+        BandMember("5", "Member 5", "Microphone"),
+        BandMember("6", "Member 6", "Guitar"),
+        BandMember("7", "Member 7", "Keyboard")
+      ))
+    ).right()
+}
+
+fun main() {
+  //sampleStart
+  println(
+    InMemoryUserDatabase.findUser(UserId("SomeUserId"))
+      .flatMap { InMemoryBandService.getBandsFollowedByUser(it.id) }
+      .fold(
+        ifLeft = { "User not found!" },
+        ifRight = { bands -> bands.toString() }
+      ))
+  //sampleEnd
+}
+```
+
+Since we have removed the line to create the user, the `findUser` computation will fail and return `Left(NotFoundError)`, and therefore short-circuit the program. Feel free to run it to check by yourself.
+
