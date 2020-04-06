@@ -753,9 +753,9 @@ object ValidationService {
 //sampleEnd
 ```
 
-This service is able to validate that our inserted username is valid by checking that it is not empty, it is not too short, and it is alphanumeric.
+This service is able to validate our inserted username by checking that it is not empty, it is not too short, and it is alphanumeric.
 
-We could use this syntax to accumulate errors:
+We could use this syntax to run all validations and accumulate the errors:
 
 ```kotlin:ank:playground
 import java.util.*
