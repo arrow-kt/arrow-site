@@ -328,29 +328,30 @@ Let's run it to find that the complete expression result is short-circuited to `
 
 ### Modelling errors
 
-Our program already handles the absence of a user in the database, which is a very specific error. But there are more errors we are not handling yet. Let's say we had real database and service implementations. Our database connection could fail on each access, and our network could timeout. Both of them could also throw other types of `IOException`. Let's represent those scenarios in our program contracts.
+Our program already handles the absence of a user in the database, which is a very specific error. But there are more errors we are not handling yet. Let's say we had real database and service implementations. Both could throw connection errors on each call, timeout errors, and other types of `IOException` errors. Let's represent those scenarios in our program contracts.
 
 ```kotlin
-object DatabaseConnectionError : RuntimeException()
+object ConnectionError : RuntimeException()
 object TimeoutError : RuntimeException()
+object IOException : java.io.IOException()
 
 interface UserDatabase {
-  @Throws(IOException::class, DatabaseConnectionError::class)
+  @Throws(ConnectionError::class, TimeoutError::class, IOException::class)
   fun createUser(name: String): UserId
 
-  @Throws(IOException::class, DatabaseConnectionError::class)
+  @Throws(ConnectionError::class, TimeoutError::class, IOException::class)
   fun findUser(userId: UserId): Option<User>
 }
 
 interface BandService {
-  @Throws(IOException::class, TimeoutError::class)
+  @Throws(ConnectionError::class, TimeoutError::class, IOException::class)
   fun getBandsFollowedByUser(userId: UserId): Option<List<Band>>
 }
 ```
 
 This is a potential way we'd think of for modelling our scenario in a jvm program. But using exceptions has some important cons:
 
-* **Exceptions are heavy and slow**. Here you have more literature about this.
+* **Exceptions are heavy and slow**. [Here](http://normanmaurer.me/blog/2013/11/09/The-hidden-performance-costs-of-instantiating-Throwables/) you have more literature about this. Also [from this slide forward](https://speakerdeck.com/raulraja/functional-error-handling?slide=6). Instantiating a `Throwable` computes the stack-trace and that is such heavy that is usually considered a side effect. 
 * **Exceptions can jump many layers in the call stack**, so you cannot think locally about your functions, but need to keep the complete program flow in mind, all the time. That's a big overhead to have. Note that one of the big benefits of Functional Programming is the ability to apply local reasoning over highly composable pieces which are the functions.
 * **Exceptions encode an alternative error path**, so you have two completely different paths to follow for your flow control: success result and exceptions. Exceptions were created to model exceptional scenarios, not for control flow. Most of our errors should be handled by the program, hence they are part of our expected domain.
 
@@ -358,3 +359,191 @@ This is a potential way we'd think of for modelling our scenario in a jvm progra
 As stated above, we would rather aim to model our program errors as part of our domain data. Errors are also data.
 
 Arrow provides the [`Either<L, R>`](https://arrow-kt.io/docs/apidocs/arrow-core-data/arrow.core/-either/) data type to model a duality in our control flow. It can be used to model any scenarios where you have a happy path to follow and an alternative via that is frequently used to represent failure.
+
+```kotlin:ank
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DomainError, UserId>
+  fun findUser(userId: UserId): Either<DomainError, User>
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>>
+}
+```
+
+For convenience, we are adding up all the expected domain error cases to a single hierarchy so we can simplify our return types everywhere. Usually, we would want to segregate our errors a bit more, and have different hierarchies for our different domains. That is something we can definitely do and will explain in further sections.
+
+Note how we always put our errors on the `left` side, and our successful results on the `right` side. That is a convention in Functional Programming.
+
+Some stubbed implementations for this encoding could be:
+
+```kotlin:ank
+import java.util.*
+import arrow.core.*
+
+class UserId(val id: String)
+data class User(val id: UserId, val name: String)
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DomainError, UserId>
+  fun findUser(userId: UserId): Either<DomainError, User>
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>>
+}
+
+//sampleStart
+object InMemoryUserDatabase : UserDatabase {
+  private var users: List<User> = emptyList()
+
+  override fun createUser(name: String): Either<DomainError, UserId> {
+    val userId = generateId(name)
+    this.users = users + listOf(User(userId, name))
+    return userId.right()
+  }
+
+  override fun findUser(userId: UserId): Either<DomainError, User> =
+    users.find { it.id == userId }.toOption().toEither { DomainError.NotFoundError }
+
+  private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
+}
+
+object InMemoryBandService : BandService {
+
+  override fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>> =
+    listOf(
+      Band("Band 1", BandStyle.POP, listOf(
+        BandMember("1", "Member 1", "Drums"),
+        BandMember("2", "Member 2", "Microphone"),
+        BandMember("3", "Member 3", "Guitar")
+      )),
+      Band("Band 2", BandStyle.POP, listOf(
+        BandMember("4", "Member 4", "Drums"),
+        BandMember("5", "Member 5", "Microphone"),
+        BandMember("6", "Member 6", "Guitar"),
+        BandMember("7", "Member 7", "Keyboard")
+      ))
+    ).right()
+}
+//sampleEnd
+```
+
+We are doing the same than before, but this time we lift our results into the `Either<L, R>` context using the `value.right()` extension function. If we wanted to lift an error we would use `error.left()`.
+
+This is how we could encode our program now:
+
+```kotlin:ank:playground
+import java.util.*
+import arrow.core.*
+
+class UserId(val id: String)
+data class User(val id: UserId, val name: String)
+
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DomainError, UserId>
+  fun findUser(userId: UserId): Either<DomainError, User>
+}
+
+object InMemoryUserDatabase : UserDatabase {
+  private var users: List<User> = emptyList()
+
+  override fun createUser(name: String): Either<DomainError, UserId> {
+    val userId = generateId(name)
+    this.users = users + listOf(User(userId, name))
+    return userId.right()
+  }
+
+  override fun findUser(userId: UserId): Either<DomainError, User> =
+    users.find { it.id == userId }.toOption().toEither { DomainError.NotFoundError }
+
+  private fun generateId(name: String): UserId = UserId("$name${UUID.randomUUID()}")
+}
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>>
+}
+
+object InMemoryBandService : BandService {
+
+  override fun getBandsFollowedByUser(userId: UserId): Either<DomainError, List<Band>> =
+    listOf(
+      Band("Band 1", BandStyle.POP, listOf(
+        BandMember("1", "Member 1", "Drums"),
+        BandMember("2", "Member 2", "Microphone"),
+        BandMember("3", "Member 3", "Guitar")
+      )),
+      Band("Band 2", BandStyle.POP, listOf(
+        BandMember("4", "Member 4", "Drums"),
+        BandMember("5", "Member 5", "Microphone"),
+        BandMember("6", "Member 6", "Guitar"),
+        BandMember("7", "Member 7", "Keyboard")
+      ))
+    ).right()
+}
+
+fun main() {
+  //sampleStart
+  println(
+    InMemoryUserDatabase.createUser("SomeUserName")
+      .flatMap { InMemoryUserDatabase.findUser(it) }
+      .flatMap { InMemoryBandService.getBandsFollowedByUser(it.id) }
+      .fold(
+        ifLeft = { "User not found!" },
+        ifRight = { bands -> bands.toString() }
+      ))
+  //sampleEnd
+}
+```
