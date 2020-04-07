@@ -16,7 +16,7 @@ Along this series of posts we will gradually build a backend for a Rock Band soc
 
 <img src="/img/learn-by-example/band_playing.gif" alt="Rock band playing" width="800"/>
 
-Let's start by writing an early simple version of our program to start from there. Let's image a `UserDatabase` for the social network so new users can register:
+Let's start by writing an early simple version of our program to start from there. Let's model a `UserDatabase` for the social network so new users can register:
 
 ```kotlin
 interface UserDatabase {
