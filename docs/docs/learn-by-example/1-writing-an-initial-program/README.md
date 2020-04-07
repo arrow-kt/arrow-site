@@ -25,7 +25,7 @@ interface UserDatabase {
 }
 ```
 
-If our backend was a **Resful API**, we would expect it to offer an endpoint to create new users that would rely on this database.
+If our backend was a **RESTful API**, we would expect it to offer an endpoint to create new users that would rely on this database.
 
 If we wanted to provide a somehow controlled implementation for this database contract that **did not rely on third parties**, one option could be to provide an in-memory implementation for it:
 
