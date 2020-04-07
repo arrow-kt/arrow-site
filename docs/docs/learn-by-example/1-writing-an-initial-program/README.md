@@ -101,7 +101,7 @@ On top of that, it's a database, so by definition it represents **a mutable stat
 
 Every time we create a user, the database internal state will change. If we keep in mind that the `createUser` function could be **called from multiple places** in our program, this encoding would make it hard for us the developers to track down what the state of our program is at any point in time.
 
-Overall, we are introducing ambiguity in our program provoked by a **"side effect"**, which makes the program non deterministic. That blocks our ability to apply *local reasoning* over pieces of logic relying on it. And if we can't reason about those atomic pieces, we will not be able to reason over bigger logics relying on them, and ultimately over our program as a whole.
+Overall, we are introducing ambiguity in our program provoked by a [**"side effect"**](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), which makes the program [non-deterministic](https://en.wikipedia.org/wiki/Nondeterministic_algorithm). That blocks our ability to apply *local reasoning* over pieces of logic relying on it. And if we can't reason about those atomic pieces, we will not be able to reason over bigger programs relying on them, and ultimately over our system as a whole.
 
 Finally, we have a second side effect imposed by the `generateId()` function. That function returns a different value every time we call it, so it is impure by definition.
 
