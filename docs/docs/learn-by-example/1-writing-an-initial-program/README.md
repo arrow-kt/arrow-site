@@ -95,6 +95,8 @@ Ultimately we need to account for errors in our domain and handle them properly 
 
 <img src="/img/learn-by-example/band_error_keep_playing.gif" alt="Rock band playing" width="800"/>
 
+On another note, all our calls are encoded in a synchronous way, so they are forcing to block the calling thread. We'd likely want them to be non blocking.
+
 On top of that, it's a database, so by definition it represents **a mutable state**. Even if our implementation is in-memory, we are not reflecting this mutability with the public function types in the contract.
 
 Every time we create a user, the database internal state will change. If we keep in mind that the `createUser` function could be **called from multiple places** in our program, this encoding would make it hard for us the developers to track down what the state of our program is at any point in time.
