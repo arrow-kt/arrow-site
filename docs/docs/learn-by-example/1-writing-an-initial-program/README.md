@@ -103,7 +103,7 @@ Every time we create a user, the database internal state will change. If we keep
 
 Overall, we are introducing ambiguity in our program provoked by a [**"side effect"**](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), which makes the program [non-deterministic](https://en.wikipedia.org/wiki/Nondeterministic_algorithm). That blocks our ability to apply *local reasoning* over pieces of logic relying on it. And if we can't reason about those atomic pieces, we will not be able to reason over bigger programs relying on them, and ultimately over our system as a whole.
 
-Finally, we have a second side effect imposed by the `generateId()` function. That function returns a different value every time we call it, so it is impure by definition.
+Finally, we have a second side effect imposed by the `generateId()` function. That function returns a different value every time we call it, so it is impure and non-deterministic by definition.
 
 We will address all the described issues in the sections to come, starting by handling errors. Have a look to the next post in the series: [Handling errors](/learn-by-example/2-handling-errors/).
  
