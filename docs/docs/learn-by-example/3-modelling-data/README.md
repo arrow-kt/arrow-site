@@ -373,3 +373,74 @@ In algebra, it's represented by the "OR" operator.
 It can be one of a given set of elements. *"This implementation, OR this one, OR this other one..."*, it's **exclusive**. Good examples of these in Kotlin would be `enum class`, or `sealed class`, used to define a sealed hierarchy of possible implementations for a type.
 
 **As you can imagine, both Product types and Sum types are used to model data in our programs.**
+
+In Arrow, both concepts are really used, but specially sum types. All Arrow data types are defined as sum types that provide an algebra of possible representations for the type. Some rapid examples:
+
+**Option**
+
+```kotlin:ank
+//sampleStart
+sealed class Option<out A> : OptionOf<A> {
+  object None : Option<Nothing>()
+  data class Some<out T>(val t: T) : Option<T>()
+}
+//sampleEnd
+```
+
+Note how the `A` type has `out` variance, and how we declare `None` as `Option<Nothing>()`. With this encoding, we make sure that any code dealing with an optional value will match it as an `Option<A>` no matter whether it's a `None` or a `Some`, by keeping the information about the generic type `A`. The goal is to use the power of `Nothing` as the bottom type so code doesn't fall into inference problems. If we didn't code it like this, both implementations would be considered different types and the upper bound for both would be `Any`, instead of `Option<A>`.
+
+Another example of how we are leveraging this pattern could be `Either<A, B>`.
+
+**Either**
+
+```kotlin:ank
+//sampleStart
+sealed class Either<out A, out B> {
+  data class Left<out A>(val a: A) : Either<A, Nothing>()
+  data class Right<out B>(val b: B) : Either<Nothing, B>()
+}
+//sampleEnd
+```
+
+Once again, check how we make use of `out` variance for both generic types, so we can do `Left : Either<A, Nothing>` and `Right : Either<Nothing, B>`. That way we can let the compiler ignore the non relevant side for each case.
+
+You can find more details on this [in this interesting article](https://www.freecodecamp.org/news/the-nature-of-nothing-in-kotlin-9b1c78f27da7/).
+
+##### Back to the program
+
+We are already using some of those data types like `Either` to model the concerns over our data, and we are actually already using the concept of algebraic data types to model our errors. Note how our `DomainError` definition **is already a sum type**:
+
+```kotlin:ank
+//sampleStart
+sealed class DomainError : RuntimeException() {
+  object ConnectionError : DomainError()
+  object TimeoutError : DomainError()
+  object NotFoundError : DomainError()
+  object FallbackError : DomainError()
+}
+//sampleEnd
+```
+
+At a given time, it can be **one of many**. We can use the same idea to model the instruments for our rock band 🎸🤘
+
+```kotlin:ank
+//sampleStart
+data class GuitarString(val broken: Boolean = false)
+
+sealed class Instrument {
+  abstract val model: String
+
+  data class Guitar(override val model: String, val strings: List<GuitarString>) : Instrument()
+  data class Microphone(override val model: String) : Instrument()
+  data class Drums(override val model: String) : Instrument()
+}
+
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: Instrument
+)
+//sampleEnd
+```
+
+Here we have the combination of both product types and sum types to compose a nice part of our data domain.
