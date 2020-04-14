@@ -408,6 +408,8 @@ You can find more details on this [in this interesting article](https://www.free
 
 ##### Back to the program
 
+<img src="/img/learn-by-example/band_data_model.gif" alt="Rock band playing" width="800"/>
+
 We are already using some of those data types like `Either` to model the concerns over our data, and we are actually already using the concept of algebraic data types to model our errors. Note how our `DomainError` definition **is already a sum type**:
 
 ```kotlin:ank
