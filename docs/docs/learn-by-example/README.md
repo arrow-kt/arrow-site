@@ -8,17 +8,19 @@ permalink: /learn-by-example/
 
 Λrrow is a library for Typed Functional Programming in Kotlin. It provides all the required constructs so we can write any pure functional programs with it.
 
-This site offers detailed articles about **how to apply Arrow to our daily work**. If you are a newcomer, this is the best place to start! You are very welcome 🤗. And for devs that are already using Arrow: you can use this page as your daily cheat sheet 👍
+This site offers detailed articles about **how to apply Arrow to our daily work**. If you are a newcomer, this is the best place to start! You are very welcome 🤗. For devs that are already using Arrow: you can use this page as your daily cheat sheet 👍
+
+Posts on this site are organized sequentially and under two main sections.
 
 ## A complete program by example
 
-For a list of sequential posts on how to code a complete program from scratch using Arrow, you can have a look to our section with [A complete program by example]().
+A series of posts on how to encode a complete program from scratch using Arrow.
 
 In this section we will build a program from the ground covering a set of very common concepts like **asynchrony**, **concurrency**, **controlling effects**, **parallel and sequential computation**, **thread switching**, **domain data and error modeling**, **resource safety**, **dependency injection**, **testing** and much more.
 
 ## Integration with third parties
 
-We often struggle to figure out how to apply Arrow over our day to day frameworks. For examples on this you can visit our integration with third parties section, where you will find detail driven posts over the example for some very common libraries:
+We often struggle to figure out how to apply Arrow over our day to day frameworks. Here you will find detail driven posts working over the sample program we created in the previous section. We will cover some very common libraries:
 
 * [KotlinX Coroutines]()
 * [RxJava]()
