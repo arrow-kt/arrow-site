@@ -12,7 +12,7 @@ In this post, we will learn how both the Kotlin type system and the functional d
 
 ## 3. Modelling data
 
-Let me rewind ⏪ a bit to rescue our latest "fail fast" version of our program. For that one, we were using `Either<L, R>` to model both paths in our program: errors vs successful data.
+Let me rewind ⏪ a bit to rescue the latest "fail fast" version of our program. For that one we were using `Either<A, B>` to model both paths in our program: errors vs data.
 
 Here we have our contracts for the `UserDatabase` and the `BandService`. We call those *algebras*, since they define **an abstract set of operations each one of those dependencies provides**.
 
@@ -59,7 +59,7 @@ interface BandService {
 //sampleEnd
 ```
 
-These were the stubbed implementations we had for those.
+Algebras are usually parametrized to `F`, since they're meant to be polymorphic over the data type. In this case they are not. We are keeping things simple (for now) so they're fixed to `Either`. These were the stubbed implementations we had for those.
 
 ```kotlin:ank
 import java.util.*
@@ -241,9 +241,11 @@ object StdOutConsole : Console {
 //sampleEnd
 ```
 
-The Kotlin type system offers `Unit` as a way to model an operation that will not return a value expected to be used. That makes it perfect to model side effects like this one, since by returning `Unit` you are assuming the function will need to do something within its scope that is not providing a result: printing to console, rendering to screen, mutating a external shared state, or similar.
+The Kotlin type system offers `Unit` as a way to model an operation that will not return a value expected to be used by the program. That makes it perfect to model side effects like this one, since by returning `Unit` you are assuming the function will need to do something within its scope that is not providing an explicit result: printing to console, rendering to screen, mutating a external shared state, or similar. 
 
-Let's update our program to use the `Console` algebra, and let's also use the chance to move our program to target the algebra abstractions.
+*(Note that there are more actions to take for controlling effects, but those are being deliberately ignored for now. You will learn about this in [4. Adding safe background computation](/learn-by-example/4-adding-safe-background-computation/))*
+
+Let's update our program to use the `Console` algebra, and let's also use the chance to move our program to only target the abstractions defined by the algebras.
 
 ```kotlin:ank:playground
 import java.util.*
@@ -344,19 +346,19 @@ fun program(console: Console, userDatabase: UserDatabase, bandService: BandServi
 //sampleEnd
 ```
 
-Check how the program is completely abstract at this moment. It only cares about what operations are performed but not how they are implemented. Implementation details are passed as dependencies to the program.
+Check how the program is completely abstract at this moment. It only cares about what operations are performed but not how they are implemented. Implementation details are passed **as dependencies to the program**.
 
-Once we have learned how `Unit` can be used to indicate side effects, we can also take a look at `Nothing`, within the Kotlin type system.
+Once we have learned how `Unit` can be used to indicate side effects, we can also take a look at [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html), within the Kotlin type system.
 
-`Nothing` as a return type indicates an `absurd` function. It's a function that literally can't return from the Kotlin compiler perspective. **It is enforced to throw.** You can take a look to the `TODO()` function declaration in Kotlin:
+`Nothing` is used to represent "a value that never exists". E.g: When used as a return type, it indicates an `absurd` function. It's a function that never returns from the Kotlin compiler perspective; **It is enforced to throw.** You can take a look to the `TODO()` function declaration in Kotlin:
 
 ```kotlin:ank
 //sampleStart
-inline fun TODO(): Nothing = throw NotImplementedError()
+inline fun TODO(): Nothing = throw NotImplementedError() // it just throws! 💥
 //sampleEnd 
 ``` 
 
-`Nothing` is used as the **bottom type** by the Kotlin compiler. The compiler knows how to go from `Nothing` to any other type, so it can be used to **leverage type inference**, so it does not get affected by non possible variants represented with `Nothing`. This approach is widely used when defining [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type), so let's learn a bit about those over our program example.
+`Nothing` is used as the **bottom type** by the Kotlin compiler. The compiler knows how to go from `Nothing` to any other type, so it can be used to **leverage type inference**, so it does not get affected by non possible variants represented with `Nothing`. This approach is widely used when defining [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type), so let's learn a bit about those, that we will also use over our program example.
 
 We refer as algebraic data types to a composition of **product types** and **sum types**. You can dive into very detailed explanations, but with the intention to stay closer to the example, we'll give you two brief definitions:
 
@@ -365,6 +367,8 @@ We refer as algebraic data types to a composition of **product types** and **sum
 In algebra, it's represented by the "AND" operator. 
 
 A product type is comprised of **all its properties**. *"This property, AND this one, AND this other one..."*, all of them are expected to **conform the structure of the type**. Based on this concept, additional behaviors can be derived (at compile time) based on the type structure. A good example of a product type would be `data class` in Kotlin, that the compiler derives operations like `equals`, `hashcode`, `components` (destructuring) or the `copy` constructor for.
+
+Arrow extends support for product types with the `@product` annotation, deriving additional behaviors on top of the stdlib ones. We will not be using those here, but you can take a look to [the official Arrow Incubator documentation](https://arrow-kt.io/docs/0.10/generic/product/) for more details on this subject. 
 
 #### Sum type
 
@@ -408,6 +412,8 @@ You can find more details on this [in this interesting article](https://www.free
 
 ##### Back to the program
 
+Let's use some of the concepts we learned to model our domain.
+
 <img src="/img/learn-by-example/band_data_model.gif" alt="Rock band playing" width="800"/>
 
 We are already using some of those data types like `Either` to model the concerns over our data, and we are actually already using the concept of algebraic data types to model our errors. Note how our `DomainError` definition **is already a sum type**:
@@ -423,7 +429,88 @@ sealed class DomainError : RuntimeException() {
 //sampleEnd
 ```
 
-At a given time, it can be **one of many**. We can use the same idea to model the instruments for our rock band 🎸🤘
+At a given time, it can be **one of many**.
+
+Also within the sum types umbrella, Arrow provides `Coproduct` types. `Coproducts` represent an ad-hoc sealed set of arbitrary types. The advantage of those compared to `sealed classes` is that they don't impose any inheritance relation, so we keep the freedom of combining different sealed hierarchies at will, and leverage reusability without the need for nesting.
+
+For an example of this, let's port our `DomainError` to be a `Coproduct` instead.
+
+```kotlin:ank
+import java.util.*
+import arrow.core.*
+
+data class GuitarString(val broken: Boolean = false)
+
+sealed class Instrument {
+  abstract val model: String
+
+  data class Guitar(override val model: String, val strings: List<GuitarString>) : Instrument()
+  data class Microphone(override val model: String) : Instrument()
+  data class Drums(override val model: String) : Instrument()
+}
+
+data class BandMember(
+  val id: String,
+  val name: String,
+  val instrument: String
+)
+
+enum class BandStyle {
+  ROCK, POP, REGGAE, RAP, TRAP
+}
+
+data class Band(
+  val id: String,
+  val name: String,
+  val style: BandStyle,
+  val members: List<BandMember>
+)
+
+data class Venue(val name: String, val address: String)
+
+data class Concert(
+  val name: String,
+  val date: Date,
+  val venue: Venue,
+  val bandId: String
+)
+
+//sampleStart
+object ConnectionError
+object TimeoutError
+object NotFoundError
+object FallbackError
+
+typealias DatabaseError = Coproduct4<ConnectionError, TimeoutError, NotFoundError, FallbackError>
+
+interface UserDatabase {
+  fun createUser(name: String): Either<DatabaseError, UserId>
+  fun findUser(userId: UserId): Either<DatabaseError, User>
+}
+
+typealias NetworkError = Coproduct4<ConnectionError, TimeoutError, NotFoundError, FallbackError>
+
+interface BandService {
+  fun getBandsFollowedByUser(userId: UserId): Either<NetworkError, List<Band>>
+
+  fun getBandsConcerts(bandIds: List<String>): Either<NetworkError, List<Concert>>
+}
+//sampleEnd
+```
+
+The errors are still the same, but we have moved our `sealed class` to be an Arrow `Coproduct4` now. `Coproducts` support up to 22 types (arity).
+
+
+
+Imagine we had a new network call in the `BandService` for requesting the overall list of `Concerts` for a given list of `Bands`.
+
+
+ that could return a new set of errors that's more specific than the `DomainError` we have until now. 
+
+
+
+
+We can also use a sum type to reshape the instruments for our rock band 🎸🤘
 
 ```kotlin:ank
 //sampleStart
