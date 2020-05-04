@@ -14,61 +14,81 @@ jobs:
     runs-on: ubuntu-16.04
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-        architecture: x64
-    - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v1
-    - name: Checkout orchestrator
-      run: |
-        cd $BASEDIR
-        git clone https://github.com/arrow-kt/arrow.git
-    - name: "Site: run Ank"
+#    - uses: actions/checkout@v1
+#    - name: Set up JDK 1.8
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 1.8
+#        architecture: x64
+#    - name: Validate Gradle Wrapper
+#      uses: gradle/wrapper-validation-action@v1
+#    - name: Checkout orchestrator
+#      run: |
+#        cd $BASEDIR
+#        git clone https://github.com/arrow-kt/arrow.git
+#    - name: "Site: run Ank"
+#      env:
+#        JAVA_OPTS: -Xms512m -Xmx1024m
+#      run: ./gradlew runAnk
+#    - name: "Next version: generate and validate docs for all the libraries"
+#      run: |
+#        for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
+#            cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
+#            $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
+#            echo "include 'arrow-docs'" >> $BASEDIR/$repository/settings.gradle
+#            $BASEDIR/arrow/scripts/project-run-ank.sh $repository
+#            #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
+#            cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
+#        done
+#    - name: "Other versions: generate and validate docs"
+#      run: |
+#        . $BASEDIR/arrow/scripts/commons4gradle.sh
+#        if [ -f $BASEDIR/arrow-site/update-other-versions.txt ]; then
+#            for version in $(cat update-other-versions.txt); do
+#                echo "Update $version ..."
+#                SHORT_VERSION=$(echo $version | cut -d. -f1-2)
+#                cd $BASEDIR/arrow-site
+#                cp sidebar/$SHORT_VERSION/* docs/_data/
+#                sed -i "s/latest/$version/g" docs/_includes/_head-docs.html
+#                ./gradlew clean runAnk
+#                cd $BASEDIR/arrow
+#                git checkout $version
+#                sed -i "s/^VERSION_NAME.*/VERSION_NAME=$version/g" gradle.properties
+#                OSS_REPOSITORY="https://oss.jfrog.org/artifactory/oss-snapshot-local/"
+#                BINTRAY_REPOSITORY="https://dl.bintray.com/arrow-kt/arrow-kt/"
+#                sed -i "s/maven { url \"$(escapeURL $OSS_REPOSITORY)\" }/maven { url \"$(escapeURL $BINTRAY_REPOSITORY)\" }/g" generic-conf.gradle
+#                for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
+#                    cd $BASEDIR/$repository
+#                    git checkout $version
+#                    replaceGlobalPropertiesbyLocalConf gradle.properties
+#                    if [ -f arrow-docs/build.gradle ]; then
+#                        sed -i "s/maven { url \"$(escapeURL $OSS_REPOSITORY)\" }/maven { url \"$(escapeURL $BINTRAY_REPOSITORY)\" }/g" arrow-docs/build.gradle
+#                    fi
+#                    $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
+#                    echo "include 'arrow-docs'" >> $BASEDIR/$repository/settings.gradle
+#                    $BASEDIR/arrow/scripts/project-run-ank.sh $repository
+#                    #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
+#                    cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
+#                done
+#            done
+#        fi
+    - name: Generate sitemap.xml
       env:
-        JAVA_OPTS: -Xms512m -Xmx1024m
-      run: ./gradlew runAnk
-    - name: "Next version: generate and validate docs for all the libraries"
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        S3_BUCKET: ${{ secrets.S3_BUCKET }}
       run: |
-        for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
-            cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git
-            $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
-            echo "include 'arrow-docs'" >> $BASEDIR/$repository/settings.gradle
-            $BASEDIR/arrow/scripts/project-run-ank.sh $repository
-            #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
-            cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
-        done
-    - name: "Other versions: generate and validate docs"
-      run: |
-        . $BASEDIR/arrow/scripts/commons4gradle.sh
-        if [ -f $BASEDIR/arrow-site/update-other-versions.txt ]; then
-            for version in $(cat update-other-versions.txt); do
-                echo "Update $version ..."
-                SHORT_VERSION=$(echo $version | cut -d. -f1-2)
-                cd $BASEDIR/arrow-site
-                cp sidebar/$SHORT_VERSION/* docs/_data/
-                sed -i "s/latest/$version/g" docs/_includes/_head-docs.html
-                ./gradlew clean runAnk
-                cd $BASEDIR/arrow
-                git checkout $version
-                sed -i "s/^VERSION_NAME.*/VERSION_NAME=$version/g" gradle.properties
-                OSS_REPOSITORY="https://oss.jfrog.org/artifactory/oss-snapshot-local/"
-                BINTRAY_REPOSITORY="https://dl.bintray.com/arrow-kt/arrow-kt/"
-                sed -i "s/maven { url \"$(escapeURL $OSS_REPOSITORY)\" }/maven { url \"$(escapeURL $BINTRAY_REPOSITORY)\" }/g" generic-conf.gradle
-                for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
-                    cd $BASEDIR/$repository
-                    git checkout $version
-                    replaceGlobalPropertiesbyLocalConf gradle.properties
-                    if [ -f arrow-docs/build.gradle ]; then
-                        sed -i "s/maven { url \"$(escapeURL $OSS_REPOSITORY)\" }/maven { url \"$(escapeURL $BINTRAY_REPOSITORY)\" }/g" arrow-docs/build.gradle
-                    fi
-                    $BASEDIR/arrow/scripts/project-run-dokka.sh $repository
-                    echo "include 'arrow-docs'" >> $BASEDIR/$repository/settings.gradle
-                    $BASEDIR/arrow/scripts/project-run-ank.sh $repository
-                    #$BASEDIR/arrow/scripts/project-locate-doc.sh $repository
-                    cp -r $BASEDIR/$repository/arrow-docs/build/site/* $BASEDIR/arrow-site/build/site/
-                done
-            done
-        fi
+        echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+        echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+        aws s3 ls s3://$S3_BUCKET/docs --recursive > docs-content.log
+        grep html docs-content.log > docs-pages.log
+        while read line; do
+          PAGE_DATE=$(echo $line | cut -d' ' -f1)
+          PAGE_PATH=$(echo $line | cut -d' ' -f4)
+          echo "<url><loc>https://arrow-kt.io/${PAGE_PATH}</loc><lastmod>${PAGE_DATE}</lastmod></url>"
+        done < docs-pages.log >> sitemap.xml 
+        echo '</urlset>' >> sitemap.xml
+    - uses: actions/upload-artifact@v1
+      with:
+        name: sitemap
+        path: sitemap.xml
