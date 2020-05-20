@@ -91,6 +91,8 @@ jobs:
         git checkout .; git checkout $LAST_TAG
         sed -i "s/^VERSION_NAME.*/VERSION_NAME=$LAST_TAG/g" gradle.properties
         replaceOSSbyBintrayRepository generic-conf.gradle
+        # TODO: Remove when releasing 0.11.0
+        cp $BASEDIR/arrow-master/doc-conf.gradle $BASEDIR/arrow/
         for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
             cd $BASEDIR/$repository
             git checkout .; git checkout $LAST_TAG
@@ -162,16 +164,15 @@ jobs:
         fi
     - name: "Site: generate sitemap.xml"
       run: |
-        LAST_MAJOR_MINOR_VERSION=$(git describe --abbrev=0 | cut -d. -f1-2)
         echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
         echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
-        aws s3 ls s3://$S3_BUCKET/docs/$LAST_MAJOR_MINOR_VERSION --recursive > docs-content.log
-        grep index.html docs-content.log > docs-pages.log
+        aws s3 ls s3://$S3_BUCKET/docs --recursive > docs-content.log
+        grep -e " docs/[^0-9|next].*index.html$" docs-content.log > $BASEDIR/logs/main-pages.log
         while read line; do
           PAGE_DATE=$(echo $line | cut -d' ' -f1)
           PAGE_PATH=$(echo $line | cut -d' ' -f4)
           echo "<url><loc>https://arrow-kt.io/${PAGE_PATH}</loc><lastmod>${PAGE_DATE}</lastmod></url>"
-        done < docs-pages.log >> sitemap.xml
+        done < $BASEDIR/logs/main-pages.log >> sitemap.xml
         echo '</urlset>' >> sitemap.xml
     - name: "Site: publish sitemap.xml"
       run: aws s3 cp sitemap.xml s3://$S3_BUCKET/sitemap.xml >> $BASEDIR/logs/aws_sync.log
