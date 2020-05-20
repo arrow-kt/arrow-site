@@ -58,7 +58,7 @@ jobs:
       run: |
         . $BASEDIR/arrow-master/scripts/commons4gradle.sh
         version=$(git describe --abbrev=0 --tags)
-	./scripts/generate-and-validate-doc.sh
+        ./scripts/generate-and-validate-doc.sh
     - name: "Latest release: build"
       run: |
         bundle exec jekyll build -b docs -s build/site -d build/_site
