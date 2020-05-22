@@ -56,8 +56,7 @@ jobs:
         tree build/_site > $BASEDIR/logs/content_docs-next.log
     - name: "Latest release: generate and validate docs for all the libraries"
       run: |
-        . $BASEDIR/arrow-master/scripts/commons4gradle.sh
-        version=$(git describe --abbrev=0 --tags)
+        export VERSION=$(git describe --abbrev=0 --tags)
         ./scripts/generate-and-validate-doc.sh
     - name: "Latest release: build"
       run: |
@@ -66,9 +65,9 @@ jobs:
         tree build/_site > $BASEDIR/logs/content_docs.log
     - name: "Other versions: generate and validate docs for all the libraries"
       run: |
-        . $BASEDIR/arrow-master/scripts/commons4gradle.sh
         if [ -f $BASEDIR/arrow-site/update-other-versions.txt ]; then
             for version in $(cat update-other-versions.txt); do
+                export VERSION=$version
                 ./scripts/generate-and-validate-doc.sh
                 cd $BASEDIR/arrow-site
                 bundle exec jekyll build -b docs/$SHORT_VERSION -s build/site -d build/_site
