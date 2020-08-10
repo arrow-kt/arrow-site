@@ -29,7 +29,6 @@ jobs:
       run: |
         cd $BASEDIR
         git clone https://github.com/arrow-kt/arrow.git
-        git clone https://github.com/arrow-kt/arrow.git arrow-master
     - name: Prepare environment
       run: |
         set -ex
@@ -57,11 +56,11 @@ jobs:
         done
     - name: "Next version: generate and validate docs for all the libraries"
       run: |
-        . $BASEDIR/arrow-master/scripts/commons4gradle.sh
+        . $BASEDIR/arrow/scripts/commons4gradle.sh
         for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
             cd $BASEDIR ; git clone https://github.com/arrow-kt/$repository.git; cd $repository
             addArrowDocs $BASEDIR/$repository/settings.gradle
-            $BASEDIR/arrow-master/scripts/project-generate-and-validate-doc.sh $repository
+            $BASEDIR/arrow/scripts/project-generate-and-validate-doc.sh $repository
         done
     - name: "Next version: build"
       run: |
