@@ -19,7 +19,7 @@ perl -pe "s/^VERSION_NAME.*/VERSION_NAME=$VERSION/g" -i gradle.properties
 replaceOSSbyBintrayRepository generic-conf.gradle
 
 # TODO: Remove when releasing 0.11.0
-cp $BASEDIR/arrow-master/doc-conf.gradle $BASEDIR/arrow/
+cp $BASEDIR/arrow-master/gradle/apidoc-creation.gradle $BASEDIR/arrow/doc-conf.gradle
 
 for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
     cd $BASEDIR/$repository
