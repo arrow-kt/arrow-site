@@ -29,6 +29,7 @@ for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
     git checkout .
     git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1)
     replaceGlobalPropertiesbyLocalConf gradle.properties
+    perl -pe "s/$(escapeURL $OLD_DIR)/$(escapeURL $NEW_DIR)/g" -i $BASEDIR/arrow/*.gradle # TODO
     if [ -f arrow-docs/build.gradle ]; then
         replaceOSSbyBintrayRepository arrow-docs/build.gradle
     fi
