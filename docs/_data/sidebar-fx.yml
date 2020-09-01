@@ -45,7 +45,7 @@ options:
     nested_options:
 
       - title: kotlinx.coroutines
-        url: /coroutines-integrations/kotlinxcoroutines/
+        url: /integrations/kotlinxcoroutines/
 
   - title: IO Integrations
 
