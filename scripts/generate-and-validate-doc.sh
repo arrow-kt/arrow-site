@@ -8,7 +8,7 @@ SHORT_VERSION=$(echo $VERSION | cut -d. -f1-2)
 
 cd $BASEDIR/arrow-site
 git checkout .
-cp sidebar/$SHORT_VERSION/* docs/_data/
+if [ -d sidebar/$SHORT_VERSION ]; then cp sidebar/$SHORT_VERSION/* docs/_data/; fi
 perl -pe "s/latest/$VERSION/g" -i docs/_includes/_head-docs.html
 ./gradlew clean runAnk
 
