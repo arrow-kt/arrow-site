@@ -14,7 +14,7 @@ perl -pe "s/latest/$VERSION/g" -i docs/_includes/_head-docs.html
 
 cd $BASEDIR/arrow
 git checkout .
-git checkout $VERSION
+git checkout -f $VERSION
 perl -pe "s/^VERSION_NAME.*/VERSION_NAME=$VERSION/g" -i gradle.properties
 . ./scripts/commons4gradle.sh
 replaceOSSbyBintrayRepository "*.gradle"
@@ -27,7 +27,7 @@ cp $BASEDIR/arrow-master/gradle/apidoc-creation.gradle $BASEDIR/arrow/doc-conf.g
 for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
     cd $BASEDIR/$repository
     git checkout .
-    git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1)
+    git checkout -f $(git tag -l --sort=version:refname ${VERSION}* | tail -1)
     replaceGlobalPropertiesbyLocalConf gradle.properties
     perl -pe "s/$(escapeURL $OLD_DIR)/$(escapeURL $NEW_DIR)/g" -i $BASEDIR/arrow/*.gradle # TODO
     if [ -f arrow-docs/build.gradle ]; then
