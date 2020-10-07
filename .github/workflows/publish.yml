@@ -37,7 +37,7 @@ jobs:
         bundle install --gemfile Gemfile --path vendor/bundle
     - name: "Latest release: generate and validate docs for all the libraries"
       run: |
-        export VERSION=$(grep VERSION_NAME gradle.properties | cut -d= -f2)
+        export VERSION=$(grep LATEST_VERSION $BASEDIR/arrow-master/gradle.properties | cut -d= -f2)
         git clone https://github.com/arrow-kt/arrow-site.git $BASEDIR/arrow-site-$VERSION
         cd $BASEDIR/arrow-site-$VERSION; git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1); cd -
         ./scripts/generate-and-validate-doc.sh
