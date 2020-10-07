@@ -25,16 +25,23 @@ jobs:
         git clone https://github.com/arrow-kt/arrow.git arrow-master
     - name: Prepare environment
       run: |
-        set -ex
         mkdir $BASEDIR/logs
         brew install tree
         bundle install --gemfile Gemfile --path vendor/bundle
-    - name: "Site: run Ank"
-      run: ./gradlew runAnk
-    - name: "Site: build"
+    - name: "Latest release: generate and validate docs for all the libraries"
       run: |
-        bundle exec jekyll build -s build/site -d build/_site
-        tree build/_site > $BASEDIR/logs/content.log
+        export VERSION=$(grep VERSION_NAME gradle.properties | cut -d= -f2)
+        git clone https://github.com/arrow-kt/arrow-site.git $BASEDIR/arrow-site-$VERSION
+        cd $BASEDIR/arrow-site-$VERSION; git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1); cd -
+        ./scripts/generate-and-validate-doc.sh
+    - name: "Latest release: build"
+      run: |
+        bundle exec jekyll build -b docs -s docs
+        tree _site > $BASEDIR/logs/content_docs.log
+    - name: "Latest release: publish -- test"
+      run: |
+        echo ">>> Latest release -- test" >> $BASEDIR/logs/aws_sync.log
+        ./scripts/publish-latest-release.sh
     - name: "Next version: generate and validate docs for all the libraries"
       run: |
         . $BASEDIR/arrow-master/scripts/commons4gradle.sh
@@ -45,29 +52,22 @@ jobs:
         done
     - name: "Next version: build"
       run: |
-        bundle exec jekyll build -b docs/next -s build/site -d build/_site
-        rm -f build/_site/index.*
-        tree build/_site > $BASEDIR/logs/content_docs-next.log
-    - name: "Latest release: generate and validate docs for all the libraries"
-      run: |
-        export VERSION=$(grep VERSION_NAME gradle.properties | cut -d= -f2)
-        ./scripts/generate-and-validate-doc.sh
-    - name: "Latest release: build"
-      run: |
-        bundle exec jekyll build -b docs -s build/site -d build/_site
-        rm -f build/_site/index.*
-        tree build/_site > $BASEDIR/logs/content_docs.log
+        bundle exec jekyll build -b docs/next -s docs
+        rm -f _site/index.*
+        tree _site > $BASEDIR/logs/content_docs-next.log
     - name: "Other versions: generate and validate docs for all the libraries"
       run: |
         if [ -f $BASEDIR/arrow-site/update-other-versions.txt ]; then
             for version in $(cat update-other-versions.txt); do
                 export VERSION=$version
                 export SHORT_VERSION=$(echo $VERSION | cut -d. -f1-2)
+                git clone https://github.com/arrow-kt/arrow-site.git $BASEDIR/arrow-site-$VERSION
+                cd $BASEDIR/arrow-site-$VERSION; git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1); cd -
                 ./scripts/generate-and-validate-doc.sh
                 cd $BASEDIR/arrow-site
-                bundle exec jekyll build -b docs/$SHORT_VERSION -s build/site -d build/_site
-                rm -f build/_site/index.*
-                tree build/_site > $BASEDIR/logs/content_docs-${SHORT_VERSION}.log
+                bundle exec jekyll build -b docs/$SHORT_VERSION -s docs
+                rm -f _site/index.*
+                tree _site > $BASEDIR/logs/content_docs-${SHORT_VERSION}.log
             done
         fi
     - uses: actions/upload-artifact@v1
