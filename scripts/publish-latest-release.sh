@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Reason: it's not possible to sync all the directories because of 'docs/0.10', 'docs/next', etc.
+#         and latest release appears in the root directory
 
 set -e
 
@@ -18,16 +19,5 @@ for file in *; do
         #aws s3 sync $file s3://$S3_BUCKET/$file --delete >> $BASEDIR/logs/aws_sync.log
         continue
     fi
-    cd docs
-    for docfile in *; do 
-        if [ -f "$docfile" ]; then 
-            echo "Copying $docfile ..."
-            echo "aws s3 cp $docfile s3://$S3_BUCKET/docs/$docfile" >> $BASEDIR/logs/aws_sync.log
-            #aws s3 cp $docfile s3://$S3_BUCKET/docs/$docfile >> $BASEDIR/logs/aws_sync.log
-            continue
-        fi
-        echo "Sync $docfile ..."
-        echo "aws s3 sync $docfile s3://$S3_BUCKET/docs/$docfile --delete" >> $BASEDIR/logs/aws_sync.log
-        #aws s3 sync $docfile s3://$S3_BUCKET/docs/$docfile --delete >> $BASEDIR/logs/aws_sync.log
-    done
+    echo ">>>>>>>>>> $file"
 done
