@@ -16,8 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v1
     - name: Checkout orchestrator
       run: |
         cd $BASEDIR
