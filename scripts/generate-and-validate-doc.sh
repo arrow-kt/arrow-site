@@ -9,7 +9,6 @@ cd $BASEDIR/arrow-site
 git checkout .
 if [ -d $BASEDIR/arrow-site-$VERSION ]; then cp $BASEDIR/arrow-site-$VERSION/docs/_data/sidebar* docs/_data/; fi
 perl -pe "s/latest/$VERSION/g" -i docs/_includes/_head-docs.html
-./gradlew clean runAnk
 
 cd $BASEDIR/arrow
 git checkout .
