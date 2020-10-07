@@ -28,5 +28,8 @@ for repository in $(cat $BASEDIR/arrow/lists/libs.txt); do
         replaceOSSbyBintrayRepository arrow-docs/build.gradle
     fi
     addArrowDocs $BASEDIR/$repository/settings.gradle
-    $BASEDIR/arrow-master/scripts/project-generate-and-validate-doc.sh $repository
+    $BASEDIR/arrow-master/scripts/project-assemble.sh $repository
+    $BASEDIR/arrow-master/scripts/project-run-dokka.sh $repository
+    $BASEDIR/arrow-master/scripts/project-run-ank.sh $repository
+    $BASEDIR/arrow-master/scripts/project-locate-doc.sh $repository
 done
