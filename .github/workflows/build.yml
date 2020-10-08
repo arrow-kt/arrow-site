@@ -36,8 +36,8 @@ jobs:
         done
     - name: "Next version: build"
       run: |
+        rm -f docs/index.md
         bundle exec jekyll build -b docs/next -s docs
-        rm -f _site/index.*
         tree _site > $BASEDIR/logs/content_docs-next.log
     - name: "Latest release: generate and validate docs for all the libraries"
       run: |
@@ -63,8 +63,8 @@ jobs:
                 cd $BASEDIR/arrow-site-$VERSION; git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1); cd -
                 ./scripts/generate-and-validate-doc.sh
                 cd $BASEDIR/arrow-site
+                rm -f docs/index.md
                 bundle exec jekyll build -b docs/$SHORT_VERSION -s docs
-                rm -f _site/index.*
                 tree _site > $BASEDIR/logs/content_docs-${SHORT_VERSION}.log
             done
         fi
