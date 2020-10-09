@@ -49,10 +49,6 @@ jobs:
       run: |
         bundle exec jekyll build -b docs -s docs
         tree _site > $BASEDIR/logs/content_docs.log
-    - name: "Latest release: publish -- test"
-      run: |
-        echo ">>> Latest release -- test" >> $BASEDIR/logs/aws_sync.log
-        ./scripts/publish-latest-release.sh
     - name: "Other versions: generate and validate docs for all the libraries"
       run: |
         if [ -f $BASEDIR/arrow-site/update-other-versions.txt ]; then

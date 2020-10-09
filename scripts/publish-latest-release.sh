@@ -15,13 +15,11 @@ for file in *; do
     if [[ ${MAIN_CONTENT[*]} =~ "$file" ]]; then
         if [ -f "$file" ]; then
             echo "Copying main content: $file ..."
-            echo "aws s3 cp $file s3://$S3_BUCKET/$file" >> $BASEDIR/logs/aws_sync.log
-            #aws s3 cp $file s3://$S3_BUCKET/$file >> $BASEDIR/logs/aws_sync.log
+            aws s3 cp $file s3://$S3_BUCKET/$file >> $BASEDIR/logs/aws_sync.log
             continue
         fi
         echo "Sync main content: $file ..."
-        echo "aws s3 sync $file s3://$S3_BUCKET/$file --delete" >> $BASEDIR/logs/aws_sync.log
-        #aws s3 sync $file s3://$S3_BUCKET/$file --delete >> $BASEDIR/logs/aws_sync.log
+        aws s3 sync $file s3://$S3_BUCKET/$file --delete >> $BASEDIR/logs/aws_sync.log
         continue
     fi
 
@@ -29,11 +27,9 @@ for file in *; do
     #
     if [ -f "$file" ]; then
         echo "Copying $file ..."
-        echo "aws s3 cp $file s3://$S3_BUCKET/docs/$file" >> $BASEDIR/logs/aws_sync.log
-        #aws s3 cp $file s3://$S3_BUCKET/docs/$file >> $BASEDIR/logs/aws_sync.log
+        aws s3 cp $file s3://$S3_BUCKET/docs/$file >> $BASEDIR/logs/aws_sync.log
         continue
     fi
     echo "Sync $file ..."
-    echo "aws s3 sync $file s3://$S3_BUCKET/docs/$file --delete" >> $BASEDIR/logs/aws_sync.log
-    #aws s3 sync $file s3://$S3_BUCKET/docs/$file --delete >> $BASEDIR/logs/aws_sync.log
+    aws s3 sync $file s3://$S3_BUCKET/docs/$file --delete >> $BASEDIR/logs/aws_sync.log
 done

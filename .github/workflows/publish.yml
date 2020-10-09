@@ -45,8 +45,8 @@ jobs:
         done
     - name: "Next version: build"
       run: |
+        rm -f docs/index.md
         bundle exec jekyll build -b docs/next -s docs
-        rm -f _site/index.*
         tree _site > $BASEDIR/logs/content_docs-next.log
     - name: "Next version: publish"
       run: |
@@ -76,8 +76,8 @@ jobs:
                 cd $BASEDIR/arrow-site-$VERSION; git checkout $(git tag -l --sort=version:refname ${VERSION}* | tail -1); cd -
                 ./scripts/generate-and-validate-doc.sh
                 cd $BASEDIR/arrow-site
+                rm -f docs/index.md
                 bundle exec jekyll build -b docs/$SHORT_VERSION -s docs
-                rm -f _site/index.*
                 tree _site > $BASEDIR/logs/content_docs-${SHORT_VERSION}.log
                 echo ">>> $SHORT_VERSION VERSION" >> $BASEDIR/logs/aws_sync.log
                 aws s3 sync _site s3://$S3_BUCKET/docs/$SHORT_VERSION --delete >> $BASEDIR/logs/aws_sync.log
