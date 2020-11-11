@@ -71,7 +71,7 @@ options:
         url: /apidocs/arrow-fx/
         
       - title: Arrow Fx STM
-        url: /apidocs/arrow-fx-stm
+        url: /apidocs/arrow-fx-stm/
 
       - title: Arrow Fx MTL
         url: /apidocs/arrow-fx-mtl/
