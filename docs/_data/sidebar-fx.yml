@@ -7,17 +7,13 @@ options:
         url: /fx/
 
       - title: Coroutines
-        url: /fx/coroutines/
-
-      - title: Asynchronous & Concurrent Programming
         url: /fx/async/
 
-      - title: Polymorphism. One Program multiple runtimes
-        url: /fx/polymorphism/
-
-  - title: Data types
+  - title: Types
 
     nested_options:
+      - title: suspend () -> A
+        url: /effects/io/
 
       - title: Atomic
         url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-atomic/
@@ -40,27 +36,7 @@ options:
       - title: Semaphore
         url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-semaphore/
 
-  - title: Coroutines Integrations
-
-    nested_options:
-
-      - title: kotlinx.coroutines
-        url: /integrations/kotlinxcoroutines/
-
-  - title: IO Integrations
-
-    nested_options:
-
-      - title: RxJava2
-        url: /io-integrations/rx2/
-
-      - title: Reactor
-        url: /io-integrations/reactor/
-
-      - title: kotlinx.coroutines
-        url: /io-integrations/kotlinxcoroutines/
-
-  - title: API Docs
+  - title: Reference
 
     nested_options:
 
@@ -72,12 +48,3 @@ options:
         
       - title: Arrow Fx STM
         url: /apidocs/arrow-fx-stm/
-
-      - title: Arrow Fx MTL
-        url: /apidocs/arrow-fx-mtl/
-
-      - title: Arrow Fx Reactor
-        url: /apidocs/arrow-fx-reactor/
-
-      - title: Arrow Fx Rx2
-        url: /apidocs/arrow-fx-rx2/
