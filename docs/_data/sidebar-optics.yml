@@ -48,5 +48,8 @@ options:
       - title: Each
         url: /optics/each/
 
+  - title: Media
+    url: https://media.arrow-kt.io/tags/optics/
+
   - title: Docs
     url: /apidocs/arrow-optics/

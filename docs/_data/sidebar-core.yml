@@ -6,9 +6,6 @@ options:
       - title: Setup
         url: /quickstart/setup/
 
-      - title: Media
-        url: https://media.arrow-kt.io/tags/optics/
-
       - title: Projects & Examples
         url: /quickstart/projects/
 
@@ -76,6 +73,9 @@ options:
 
       - title: Option
         url: /apidocs/arrow-core-data/arrow.core/-option/
+
+  - title: Media
+    url: https://media.arrow-kt.io/tags/core/
 
   - title: Docs
     url: /apidocs/arrow-core/

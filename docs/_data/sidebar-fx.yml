@@ -36,7 +36,10 @@ options:
       - title: Semaphore
         url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-semaphore/
 
-  - title: Reference
+  - title: Media
+    url: https://media.arrow-kt.io/tags/fx/
+
+  - title: Docs
 
     nested_options:
 
