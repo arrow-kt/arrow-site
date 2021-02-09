@@ -18,9 +18,6 @@ options:
       - title: Atomic
         url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-atomic/
 
-      - title: ConcurrentVar
-        url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-concurrent-var/
-
       - title: Resource
         url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-resource/
 
@@ -29,12 +26,6 @@ options:
 
       - title: CircuitBreaker
         url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-circuit-breaker/
-
-      - title: Promise
-        url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-promise/
-
-      - title: Semaphore
-        url: /apidocs/arrow-fx-coroutines/arrow.fx.coroutines/-semaphore/
 
   - title: Media
     url: https://media.arrow-kt.io/tags/fx/
