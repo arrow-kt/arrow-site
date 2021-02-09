@@ -3,7 +3,6 @@
     <div id="main-flex" class="main-flex">
       {% for item in site.data.features.content %}
       {% assign title = item.title | downcase  %}
-      {% if title != "arrow incubator" %}
       <a id="{{ item.id }}" class="{{ item.id }} main-item feature" href="{{ item.url }}">
 
         <div id="{{ item.id }}-header" class="item-header">
@@ -16,7 +15,6 @@
           <p id="{{ item.id }}-description">{{ item.description }}</p>
         </div>
       </a>
-      {% endif %}
       {% endfor %}
     </div>
   </div>
