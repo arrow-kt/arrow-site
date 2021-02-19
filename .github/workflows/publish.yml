@@ -34,7 +34,7 @@ jobs:
       run: |
         mkdir $BASEDIR/logs
         brew install tree
-        bundle install --gemfile Gemfile --path vendor/bundle
+    #    bundle install --gemfile Gemfile --path vendor/bundle
     #- name: "Landing page: build"
     #  run: |
     #    ./scripts/checkout-latest-landingpage.sh
